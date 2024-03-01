@@ -3,17 +3,37 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Avg
-
+from django.contrib.auth.models import AbstractUser
 
 
 # django automatically creates an ID field for the models
 
+
 '''
-Rating stuff
+Users, Artists
+''' 
+class CustomUser(AbstractUser):
+    bio = models.TextField(blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
+
+    def __str__(self):
+        return self.username
+    
+    
+class Artist(models.Model):
+    name = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.name
+    
+    
+    
+
+'''
+Rating model and method
 '''
 class Rating(models.Model):
-    #user = models.ForeignKey(User, on_delete=models.CASCADE) not sure yet how user will be represented
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     rating = models.DecimalField(max_digits=2, decimal_places=1, validators=[MinValueValidator(0), MaxValueValidator(5)]) # 5 star rating
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
@@ -37,21 +57,7 @@ class RatingMixin:
         return self.ratings.aggregate(Avg('rating')).get('rating__avg') or None
     
     
-    
-    
-'''
-Users, Artists
-''' 
-
-class Artist(models.Model):
-    name = models.CharField(max_length=100)
-    
-    def __str__(self):
-        return self.name
-    
-
-
-
+  
 '''
 Albums, songs, EPs, Gigs
 ''' 
@@ -68,7 +74,6 @@ class Album(models.Model, RatingMixin):
 class EP(Album):
     pass
     
-
 
 # abstarct class for models of song, single
 class MusicEntity(models.Model, RatingMixin):
@@ -91,6 +96,7 @@ class Song(MusicEntity):
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
 
 
+
 class Gig(models.Model, RatingMixin):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     venue = models.CharField(max_length=100)
@@ -100,9 +106,31 @@ class Gig(models.Model, RatingMixin):
         return f"{self.artist}: {self.venue} - {self.date}"
     
     
+
+'''
+Reviews, comments
+''' 
+
+class MusicReview(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='music_reviews')
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    music_item = GenericForeignKey('content_type', 'object_id')
+
+    def __str__(self):
+        return f"{self.title} by {self.user.username}"
     
 
+class Comment(models.Model):
+    review = models.ForeignKey(MusicReview, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    content = models.TextField()
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
 
+    def __str__(self):
+        return f"Comment by {self.user.username} on {self.review.title}"
 
 
      
