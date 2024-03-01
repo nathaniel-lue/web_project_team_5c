@@ -1,44 +1,82 @@
 from django.contrib import admin
 from .models import *
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.contenttypes.admin import GenericTabularInline
 
 
+# Inline for Ratings
+class RatingInline(GenericTabularInline):
+    model = Rating
+    extra = 1
+
+# Custom User Admin
+class CustomUserAdmin(UserAdmin):
+    model = CustomUser
+    list_display = ['username', 'email', 'first_name', 'last_name']
+    fieldsets = UserAdmin.fieldsets + (
+            (None, {'fields': ('bio', 'profile_picture')}),
+    )
+
+# Artist Admin
 class ArtistAdmin(admin.ModelAdmin):
     list_display = ('name',)
-    search_fields = ('name',)
 
+# Album and EP Admin
 class AlbumAdmin(admin.ModelAdmin):
-    list_display = ('name', 'artist', 'release_date', 'rating')
+    inlines = [RatingInline,]
+    list_display = ('name', 'artist', 'release_date')
     list_filter = ('artist', 'release_date')
     search_fields = ('name', 'artist__name')
 
-class EPAdmin(admin.ModelAdmin):
-    list_display = ('name', 'artist', 'release_date', 'rating')
+class EPAdmin(AlbumAdmin):
+    pass
+
+# Music Entity Admin (for Song and Single)
+class MusicEntityAdmin(admin.ModelAdmin):
+    inlines = [RatingInline,]
+    list_display = ('name', 'artist', 'release_date')
     list_filter = ('artist', 'release_date')
     search_fields = ('name', 'artist__name')
 
-class SongAdmin(admin.ModelAdmin):
-    list_display = ('name', 'artist', 'album', 'release_date', 'rating')
-    list_filter = ('artist', 'album', 'release_date')
-    search_fields = ('name', 'artist__name', 'album__name')
+# Song Admin
+class SongAdmin(MusicEntityAdmin):
+    list_display = ('name', 'artist', 'album', 'release_date')
 
-class SingleAdmin(admin.ModelAdmin):
-    list_display = ('name', 'artist', 'release_date', 'rating')
-    list_filter = ('artist', 'release_date')
-    search_fields = ('name', 'artist__name')
+# Single Admin
+class SingleAdmin(MusicEntityAdmin):
+    pass
 
+# Gig Admin
 class GigAdmin(admin.ModelAdmin):
-    list_display = ('artist', 'venue', 'rating')
-    list_filter = ('artist', 'venue')
+    inlines = [RatingInline,]
+    list_display = ('artist', 'venue', 'date')
+    list_filter = ('artist', 'venue', 'date')
     search_fields = ('artist__name', 'venue')
+
+# Music Review Admin
+class MusicReviewAdmin(admin.ModelAdmin):
+    inlines = [RatingInline,]
+    list_display = ('title', 'user', 'content_type')
+    list_filter = ('user', 'content_type')
+    search_fields = ('title', 'user__username')
+
+# Comment Admin
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'content', 'review', 'parent')
+    list_filter = ('user', 'review')
+    search_fields = ('user__username', 'review__title', 'content')
 
 
 # Register the models and their admin classes
+admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Artist, ArtistAdmin)
 admin.site.register(Album, AlbumAdmin)
-admin.site.register(EP, EPAdmin)  # If EPs are managed similarly to Albums
+admin.site.register(EP, EPAdmin)
 admin.site.register(Song, SongAdmin)
 admin.site.register(Single, SingleAdmin)
 admin.site.register(Gig, GigAdmin)
+admin.site.register(MusicReview, MusicReviewAdmin)
+admin.site.register(Comment, CommentAdmin)
 
 
 '''
