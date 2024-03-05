@@ -60,9 +60,9 @@ class RatingMixin:
   
 '''
 Albums, songs, EPs, Gigs
-''' 
+'''
 
-class Album(models.Model, RatingMixin):
+class CollectionEntity(models.Model, RatingMixin):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     release_date = models.DateField()
@@ -70,8 +70,13 @@ class Album(models.Model, RatingMixin):
     def __str__(self):
         return self.name
     
-# since EP is structurally the same as album it just inherits from the album model
-class EP(Album):
+    class Meta:
+        abstract = True
+    
+class Album(CollectionEntity):
+    pass
+    
+class EP(CollectionEntity):
     pass
     
 
@@ -95,7 +100,8 @@ class Single(MusicEntity):
 class Song(MusicEntity):
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
 
-
+class EPTrack(MusicEntity):
+    ep = models.ForeignKey(EP, on_delete=models.CASCADE)
 
 class Gig(models.Model, RatingMixin):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)

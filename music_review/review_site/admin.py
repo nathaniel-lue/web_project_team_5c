@@ -46,6 +46,10 @@ class SongAdmin(MusicEntityAdmin):
 class SingleAdmin(MusicEntityAdmin):
     pass
 
+# Song in an EP
+class EPTrackAdmin(MusicEntityAdmin):
+    list_display = ('name', 'artist', 'ep', 'release_date')
+
 # Gig Admin
 class GigAdmin(admin.ModelAdmin):
     inlines = [RatingInline,]
@@ -74,6 +78,7 @@ admin.site.register(Album, AlbumAdmin)
 admin.site.register(EP, EPAdmin)
 admin.site.register(Song, SongAdmin)
 admin.site.register(Single, SingleAdmin)
+admin.site.register(EPTrack, EPTrackAdmin)
 admin.site.register(Gig, GigAdmin)
 admin.site.register(MusicReview, MusicReviewAdmin)
 admin.site.register(Comment, CommentAdmin)

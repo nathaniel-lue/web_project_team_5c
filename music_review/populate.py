@@ -2,7 +2,7 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','music_review.settings')
 import django
 django.setup()
-from review_site.models import Artist, Rating, Album, EP, Single, Song, Gig, MusicReview
+from review_site.models import Artist, Rating, Album, EP, Single, Song, Gig, MusicReview, EPTrack
 
 def populate():
     artists = [{'name': 'The Strokes'}, {'name': 'The Doors'}, {'name': 'The Chemical Brothers'}]
@@ -60,6 +60,15 @@ def populate():
 
     eps = [{'artist': 'Oasis', 'name': 'Whatever', 'release_date': '1994-12-18'},
            {'artist': 'The Snuts', 'name': 'Dreams', 'release_date': '2023-07-01'}]
+    
+    epSongs = {"Whatever": [{'name': 'Whatever', 'release_date': '1994-12-18'},
+                            {'name': "(It's Good) To Be Free", 'release_date': '1994-12-18'},
+                            {'name': "Half The World Away", 'release_date': '1994-12-18'},
+                            {'name': "Slide Away", 'release_date': '1994-12-18'} 
+               ],
+               "Dreams": [{'name': 'Dreams', 'release_date': '2023-07-01'},
+                          {'name': 'Gloria', 'release_date': '2023-07-01'}]
+               }
 
     for artist in artists:
         a = add_artist(artist['name'])
@@ -82,7 +91,11 @@ def populate():
 
     for ep in eps:
         a = add_artist(ep['artist'])
-        add_ep(a, ep['name'], ep['release_date'])
+        e = add_ep(a, ep['name'], ep['release_date'])
+        for epSong, song_data in epSongs.items():
+            if epSong == ep['name']:
+                for songElts in song_data:
+                    add_ep_song(a, songElts['name'], songElts['release_date'], e)
 
 def add_artist(name):
     a = Artist.objects.get_or_create(name=name)[0]
@@ -130,6 +143,15 @@ def add_ep(artist, name, release_date):
     a.release_date = release_date
     a.save()
     return a
+
+def add_ep_song(artist, name, release_date, ep):
+    s = EPTrack.objects.get_or_create(artist=artist, name=name, release_date=release_date, ep=ep)[0]
+    s.artist = artist
+    s.name = name
+    s.release_date = release_date
+    s.ep = ep
+    s.save()
+    return s
 
 if __name__ == '__main__':
     print('Starting population script...')
