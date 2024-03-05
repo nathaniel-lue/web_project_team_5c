@@ -89,6 +89,7 @@ def populate():
         a = add_artist(single['artist'])
         add_single(a, single['name'], single['release_date'])
 
+<<<<<<< HEAD
     for ep in eps:
         a = add_artist(ep['artist'])
         e = add_ep(a, ep['name'], ep['release_date'])
@@ -97,6 +98,8 @@ def populate():
                 for songElts in song_data:
                     add_ep_song(a, songElts['name'], songElts['release_date'], e)
 
+=======
+>>>>>>> f9fa7174df34eaef881f48c45689a82b9cde738d
 def add_artist(name):
     a = Artist.objects.get_or_create(name=name)[0]
     a.name = name
