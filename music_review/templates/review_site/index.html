@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE	html>	
+
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'music_review/style.css' %}" />
+  </head>
+
+  <body>
+    <div class = "topnav">
+      <a class = "active" href="#home">Home</a>
+      <a href = "#explore">Explore</a>
+      <a href = "#post a review">Post a Review</a>
+      <a href  =  "#profile">Profile</a>
+      <input type="text" placeholder="Search...">
+      <a class = "login" href="#login">Login</a>
+    </div>
+
+    <div class = "top">
+      <h1 style = "margin: 10px;">Music Review Website</h1> 
+
+      <a style = "margin: 10px;" href = "">Explore Music Reviews</a>
+    </div>
+
+    <div class = "middle">
+      <div class = "numberOneTrending">
+        <h2 style = "margin: 10px;">Trending Reviews</h2>
+        <img src="{% static 'images/craterCreek.jpg' %}">
+        <h3>Crater Creek</h3>
+        <h4>Crater Creek</h4>
+        <h4>5/5</h4>
+      </div>
+
+    </div>
+
+  </body>
+
+</html>
