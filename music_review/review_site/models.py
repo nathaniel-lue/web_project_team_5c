@@ -8,7 +8,6 @@ from django.contrib.auth.models import AbstractUser
 
 # django automatically creates an ID field for the models
 
-
 '''
 Users, Artists
 ''' 
@@ -19,15 +18,11 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
     
-    
 class Artist(models.Model):
     name = models.CharField(max_length=100)
     
     def __str__(self):
         return self.name
-    
-    
-    
 
 '''
 Rating model and method
@@ -55,7 +50,6 @@ class RatingMixin:
 
     def average_rating(self):
         return self.ratings.aggregate(Avg('rating')).get('rating__avg') or None
-    
     
   
 '''
@@ -100,6 +94,7 @@ class Single(MusicEntity):
 class Song(MusicEntity):
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
 
+#Song which is part of an EP
 class EPTrack(MusicEntity):
     ep = models.ForeignKey(EP, on_delete=models.CASCADE)
 

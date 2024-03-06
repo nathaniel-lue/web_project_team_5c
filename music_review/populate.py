@@ -2,7 +2,7 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','music_review.settings')
 import django
 django.setup()
-from review_site.models import Artist, Rating, Album, EP, Single, Song, Gig, MusicReview, EPTrack
+from review_site.models import Artist, Rating, Album, EP, Single, Song, Gig, MusicReview, EPTrack, CustomUser, MusicReview
 
 def populate():
     artists = [{'name': 'The Strokes'}, {'name': 'The Doors'}, {'name': 'The Chemical Brothers'}]
@@ -69,6 +69,15 @@ def populate():
                "Dreams": [{'name': 'Dreams', 'release_date': '2023-07-01'},
                           {'name': 'Gloria', 'release_date': '2023-07-01'}]
                }
+    
+    users = [{'username': 'craig.sinc', 'password': '12345', 'email': '123@gmail.com', 'bio': 'Hi!'},
+             {'username': 'Jim Bob', 'password': '2468', 'email': '12345@gmail.com', 'bio': 'Music lover.'},
+             {'username': 'Dave Smith', 'password': '789', 'email': '123456@gmail.com', 'bio': 'I like music!'}]
+
+    music_reviews = [{'user': 'craig.sinc', 'title': 'My Review of Is This It', 'content': 'I loved this album very much!', 'type': 'album'}]
+
+    for user in users:
+        add_user(user['username'], user['password'], user['email'], user['bio'])
 
     for artist in artists:
         a = add_artist(artist['name'])
@@ -89,7 +98,6 @@ def populate():
         a = add_artist(single['artist'])
         add_single(a, single['name'], single['release_date'])
 
-<<<<<<< HEAD
     for ep in eps:
         a = add_artist(ep['artist'])
         e = add_ep(a, ep['name'], ep['release_date'])
@@ -98,13 +106,20 @@ def populate():
                 for songElts in song_data:
                     add_ep_song(a, songElts['name'], songElts['release_date'], e)
 
-=======
->>>>>>> f9fa7174df34eaef881f48c45689a82b9cde738d
 def add_artist(name):
     a = Artist.objects.get_or_create(name=name)[0]
     a.name = name
     a.save()
     return a
+
+def add_user(username, password, email, bio):
+    u = CustomUser.objects.get_or_create(username=username, password=password, email=email,bio=bio)[0]
+    u.username = username
+    u.password = password
+    u.email = email
+    u.bio = bio
+    u.save()
+    return u
 
 def add_album(artist, name, release_date):
     a = Album.objects.get_or_create(artist=artist, name=name, release_date=release_date)[0]
@@ -155,6 +170,15 @@ def add_ep_song(artist, name, release_date, ep):
     s.ep = ep
     s.save()
     return s
+
+def add_review(user, title, content, type):
+    user = CustomUser.objects.get(username=user)
+    r = MusicReview.objects.get_or_create(user=user, title=title,content=content)[0]
+    r.user=  user
+    r.title = title
+    r.content = content
+    r.save()
+    return r
 
 if __name__ == '__main__':
     print('Starting population script...')
