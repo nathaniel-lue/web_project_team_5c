@@ -4,6 +4,8 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="{% static 'music_review/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'music_review/index.css' %}" />
+
   </head>
 
   <body>
@@ -23,16 +25,65 @@
     </div>
 
     <div class = "middle">
-      <div class = "numberOneTrending">
-        <h2 style = "margin: 10px;">Trending Reviews</h2>
-        <img src="{% static 'images/craterCreek.jpg' %}">
-        <h3>Crater Creek</h3>
-        <h4>Crater Creek</h4>
-        <h4>5/5</h4>
+      <div class = "topInfo">
+
+        <div class = "title">
+          <h2>Trending Reviews</h2>
+        </div>
+
+        <div class = "albumImage">
+          <img src="{% static 'images/craterCreek.jpg' %}">
+        </div>
+        
+        <div class = "albumInfo">
+          <p>Crater Creek</p>
+          <p>Crater Creek</p>
+          <p>5/5</p>
+        </div>
       </div>
 
-    </div>
+      <div class = "otherAlbums">
 
+        <div class = "otherAlbumOne">
+
+          <div class = "otherAlbumOneImage">
+            <img src="{% static 'images/balladsToBoogieToWreakingJoy.jpg' %}">
+          </div>
+
+          <div class = "otherAlbumOneInfo">
+            <p>Ballads to Boogie to</p>
+            <p>Wreaking Joy</p>
+            <p>5/5</p>
+          </div>
+
+        </div>
+
+        <div class = "otherAlbumTwo">
+          <div class = "otherAlbumTwoImage">
+            <img src="{% static 'images/monochromeHeyLonelyPlanetFeartGlowwworms.jpg' %}">
+          </div>
+
+          <div class = "otherAlbumTwoInfo">
+            <p>Monochrome</p>
+            <p>Hey, Lonely Planet, Feart, Glowwworms</p>
+            <p>5/5</p>
+          </div>
+        </div>
+
+        <div class = "otherAlbumThree">
+          <div class = "otherAlbumThreeImage">
+            <img src="{% static 'images/thingsHaventBeenTheSameKnivesChauFanClub.jpg' %}">
+          </div>
+
+          <div class = "otherAlbumThreeInfo">
+            <p>Things Haven't Been the Same</p>
+            <p>Knives Chau Fan Club</p>
+            <p>5/5</p>
+          </div>
+        </div>
+      </div>
+    
+    </div>
   </body>
 
 </html>

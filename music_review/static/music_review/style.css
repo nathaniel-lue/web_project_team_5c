@@ -42,32 +42,3 @@ body {
 .topnav a.login {
     float:right;
 }
-
-.top {
-    background-color: rgb(123, 123, 123);
-    border:5px solid #852020;
-}
-
-.middle {
-    float:center;
-    width: 720px;
-    background-color: #c42f2f;
-    transform: translate(25%, 0);
-    margin:auto;
-}
-.middle h2{
-    text-align: left;
-}
-
-.middle h3{
-    text-align: left;
-}
-
-.middle h4{
-    text-align: left;
-}
-
-.middle img{
-    width: 700px;
-    margin:auto;
-}
