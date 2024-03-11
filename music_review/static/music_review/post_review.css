@@ -1,0 +1,19 @@
+.top {
+    background-color: rgb(123, 123, 123);
+    border:5px solid #852020;
+  }
+  
+.middle {
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: #852020;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+.main .review{
+    display:flex;
+    
+  }
+

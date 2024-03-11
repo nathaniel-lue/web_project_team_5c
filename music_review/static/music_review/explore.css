@@ -17,8 +17,6 @@
   margin:3%;
 }
 
-
-
 .main .albums{
     margin:1%;
     width : 90%;
@@ -54,3 +52,4 @@
   display:flex;
   flex-direction:row;
 }
+

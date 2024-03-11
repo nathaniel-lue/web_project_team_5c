@@ -20,7 +20,7 @@ def music(request):
     return render(request, 'review_site/music.html')
 
 def post_review(request):
-    return render(request, 'review_site/postreview.html')
+    return render(request, 'review_site/post_review.html')
 
 def sign_up_page(request):
     return render(request, 'review_site/signup.html')

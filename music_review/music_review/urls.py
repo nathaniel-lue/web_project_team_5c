@@ -21,5 +21,6 @@ from review_site import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.index, name='index'),
-    path("explore/", views.explore, name='explore')
+    path("explore/", views.explore, name='explore'),
+    path("post_review/", views.post_review , name = "post_review")
 ]
