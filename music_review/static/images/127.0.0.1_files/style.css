@@ -2,9 +2,6 @@ body {
     background-color: black;
 }
 
-img { width: 100%; height: auto; }
-
-
 /* Add a black background color to the top navigation */
 .topnav {
     background-color: #c42f2f;

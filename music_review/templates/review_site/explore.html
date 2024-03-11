@@ -10,7 +10,7 @@
   <body>
     <div class = "topnav">
       <a class = "active" href="#home">Home</a>
-      <a href = "#explore">Explore</a>
+      <a href = "explore">Explore</a>
       <a href = "#post a review">Post a Review</a>
       <a href  =  "#profile">Profile</a>
       <input type="text" placeholder="Search...">
@@ -18,11 +18,14 @@
     </div>
     
     <div class = "main">
-      <div class = "Filter">
+      <div class = "filter">
+        <div>
         <p>Filter</p>
-        
+        </div>
+       
+        <div>
           <p>Genre</p>
-
+        
           <button onclick="myFunction()" class="genre">All</button>
 
           <p>Release Date</p>
@@ -36,51 +39,91 @@
           <p>Rating</p>
 
           <button onclick="myFunction()" class="genre">All</button>
-
-          <button type="applyFIlter">Apply filters</button>
-      </div>
-
-      <div class = "otherAlbums">
-
-        <div class = "otherAlbumOne">
-
-          <div class = "otherAlbumOneImage">
-            <img src="{% static 'images/balladsToBoogieToWreakingJoy.jpg' %}">
-          </div>
-
-          <div class = "otherAlbumOneInfo">
-            <p>Ballads to Boogie to</p>
-            <p>Wreaking Joy</p>
-            <p>5/5</p>
-          </div>
-
-        </div>
-
-        <div class = "otherAlbumTwo">
-          <div class = "otherAlbumTwoImage">
-            <img src="{% static 'images/monochromeHeyLonelyPlanetFeartGlowwworms.jpg' %}">
-          </div>
-
-          <div class = "otherAlbumTwoInfo">
-            <p>Monochrome</p>
-            <p>Hey, Lonely Planet, Feart, Glowwworms</p>
-            <p>5/5</p>
-          </div>
-        </div>
-
-        <div class = "otherAlbumThree">
-          <div class = "otherAlbumThreeImage">
-            <img src="{% static 'images/thingsHaventBeenTheSameKnivesChauFanClub.jpg' %}">
-          </div>
-
-          <div class = "otherAlbumThreeInfo">
-            <p>Things Haven't Been the Same</p>
-            <p>Knives Chau Fan Club</p>
-            <p>5/5</p>
-          </div>
+          <p></p>
+          <button type="applyFilter">Apply filters</button>
         </div>
       </div>
-    
+
+      <div class = "albums">
+        <div class = "topRow">
+          <div class = "albumOne">
+
+            <div class = "albumOneImage">
+              <img src="{% static 'images/balladsToBoogieToWreakingJoy.jpg' %}">
+            </div>
+
+            <div class = "albumOneInfo">
+              <p>Ballads to Boogie to</p>
+              <p>Wreaking Joy</p>
+              <p>5/5</p>
+            </div>
+
+          </div>
+
+          <div class = "albumOne">
+            <div class = "albumOneImage">
+              <img src="{% static 'images/monochromeHeyLonelyPlanetFeartGlowwworms.jpg' %}">
+            </div>
+
+            <div class = "albumOneInfo">
+              <p>Monochrome</p>
+              <p>Hey, Lonely Planet, Feart, Glowwworms</p>
+              <p>5/5</p>
+            </div>
+          </div>
+
+          <div class = "albumOne">
+            <div class = "albumOneImage">
+              <img src="{% static 'images/thingsHaventBeenTheSameKnivesChauFanClub.jpg' %}">
+            </div>
+
+            <div class = "albumOneInfo">
+              <p>Things Haven't Been the Same</p>
+              <p>Knives Chau Fan Club</p>
+              <p>5/5</p>
+            </div>
+          </div>
+        </div>
+
+        <div class = "bottomRow">
+          <div class = "albumOne">
+
+            <div class = "albumOneImage">
+              <img src="{% static 'images/mitsubishiSuicideMitsubishiSuicide.jpg' %}">
+            </div>
+
+            <div class = "albumOneInfo">
+              <p>Mitsubishi Suicide</p>
+              <p>Mitsubishi Suicide</p>
+              <p>5/5</p>
+            </div>
+
+          </div>
+
+          <div class = "albumOne">
+            <div class = "albumOneImage">
+              <img src="{% static 'images/fastCarsAndMovieStarsTinaSandwich.jpg' %}">
+            </div>
+
+            <div class = "albumOneInfo">
+              <p>Fast Cars and Movie Stars</p>
+              <p>Tina Sandwich</p>
+              <p>5/5</p>
+            </div>
+          </div>
+
+          <div class = "albumOne">
+            <div class = "albumOneImage">
+              <img src="{% static 'images/ashleyAskedMeTheDallasCowboys.jpg' %}">
+            </div>
+
+            <div class = "albumOneInfo">
+              <p>Ashley Asked Me</p>
+              <p>The Dallas Cowboys</p>
+              <p>5/5</p>
+            </div>
+          </div>
+        </div>
     </div>
   </body>
 
