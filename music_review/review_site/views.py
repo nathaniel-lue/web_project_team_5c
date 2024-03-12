@@ -11,7 +11,7 @@ def forum(request):
     return render(request, 'review_site/forum.html')
 
 def artist_profile(request):
-    return render(request, 'review_site/explore/artist_profile.html')
+    return render(request, 'review_site/artist_profile.html')
 
 def leaderboard(request):
     return render(request, 'review_site/leaderboard.html')
