@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
+#test commit
 def index(request):
     return render(request, 'review_site/index.html')
 
