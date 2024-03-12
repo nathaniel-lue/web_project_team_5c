@@ -1,4 +1,4 @@
-from review_site.models import Ablum
+from review_site.models import Album
 from django.shortcuts import render
 
 
@@ -8,7 +8,7 @@ def index(request):
     return response
 
 def explore(request):
-    ablum = Ablum.objects.all()
+    album = Album.objects.all()
     response = render(request, 'review_site/explore.html')
     return response
 
@@ -17,16 +17,16 @@ def filter(request):
     release_date = request.Get.get('Release date')
     artist_popularity =request.Get.get('Artist Popularity')
     rating = request.Get.get('Rating')
-    ablum = Ablum.objects.all()
+    album = Album.objects.all()
     if genre:
-        ablum = ablum.filter(genre = genre)
+        album = album.filter(genre = genre)
     if release_date:
-        ablum = ablum.filter(release_date= release_date)
+        album = album.filter(release_date= release_date)
     if artist_popularity:
-        ablum = ablum.filter(artist_popularity = artist_popularity)
+        album = album.filter(artist_popularity = artist_popularity)
     if rating:
-        ablum = ablum.filter(rating = rating)
-    return JsonResponse({'Ablums':list(ablums.values())})
+        album = album.filter(rating = rating)
+    return JsonResponse({'Albums':list(albums.values())})
 
 def artist_profile(request):
     return render(request, 'review_site/explore/artist_profile.html')
