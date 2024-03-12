@@ -1,4 +1,6 @@
 from review_site.models import Ablum
+from django.shortcuts import render
+
 
 
 def index(request):
@@ -26,13 +28,21 @@ def filter(request):
         ablum = ablum.filter(rating = rating)
     return JsonResponse({'Ablums':list(ablums.values())})
 
-def proflie(request):
-    response = render(request, 'profile.html')
-    return response('/profile.html/')
+def artist_profile(request):
+    return render(request, 'review_site/explore/artist_profile.html')
 
 def review(request):
      response = render(request, 'review.html')
      return response('review.html')
+
+def leaderboard(request):
+    return render(request, 'review_site/leaderboard.html')
+
+def music(request):
+    return render(request, 'review_site/music.html')
+
+def post_review(request):
+    return render(request, 'review_site/post_review.html')
 
 def login_page(request):
      if request.method == 'POST':
@@ -50,8 +60,7 @@ def login_page(request):
             return render(request, 'login.html')
 
 def sign_up_page(request):
-     response = render(request, 'signuppage.html')
-     return response('signuppage.html')
+    return render(request, 'review_site/signup.html')
 
 def search(request):
     request.Get.get('query', '')
