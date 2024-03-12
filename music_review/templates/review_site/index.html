@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE	html>	
+
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'music_review/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'music_review/index.css' %}" />
+
+  </head>
+
+  <body>
+    <div class = "topnav">
+      <a class = "active" href="index">Home</a>
+      <a href = "explore">Explore</a>
+      <a href = "post_review">Post a Review</a>
+      <a href  =  "#profile">Profile</a>
+      <input type="text" placeholder="Search...">
+      <a class = "login" href="#login">Login</a>
+    </div>
+
+    <div class = "top">
+      <h1 style = "margin: 10px;">Music Review Website</h1> 
+
+      <a style = "margin: 10px;" href = "">Explore Music Reviews</a>
+    </div>
+
+    <div class = "middle">
+      <div class = "topInfo">
+
+        <div class = "title">
+          <h2>Trending Reviews</h2>
+        </div>
+
+        <div class = "albumImage">
+          <img src="{% static 'images/craterCreek.jpg' %}">
+        </div>
+        
+        <div class = "albumInfo">
+          <p>Crater Creek</p>
+          <p>Crater Creek</p>
+          <p>5/5</p>
+        </div>
+      </div>
+
+      <div class = "otherAlbums">
+
+        <div class = "otherAlbumOne">
+
+          <div class = "otherAlbumOneImage">
+            <img src="{% static 'images/balladsToBoogieToWreakingJoy.jpg' %}">
+          </div>
+
+          <div class = "otherAlbumOneInfo">
+            <p>Ballads to Boogie to</p>
+            <p>Wreaking Joy</p>
+            <p>5/5</p>
+          </div>
+
+        </div>
+
+        <div class = "otherAlbumOne">
+          <div class = "otherAlbumOneImage">
+            <img src="{% static 'images/monochromeHeyLonelyPlanetFeartGlowwworms.jpg' %}">
+          </div>
+
+          <div class = "otherAlbumOneInfo">
+            <p>Monochrome</p>
+            <p>Hey, Lonely Planet, Feart, Glowwworms</p>
+            <p>5/5</p>
+          </div>
+        </div>
+
+        <div class = "otherAlbumOne">
+          <div class = "otherAlbumOneImage">
+            <img src="{% static 'images/thingsHaventBeenTheSameKnivesChauFanClub.jpg' %}">
+          </div>
+
+          <div class = "otherAlbumOneInfo">
+            <p>Things Haven't Been the Same</p>
+            <p>Knives Chau Fan Club</p>
+            <p>5/5</p>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+  </body>
+
+</html>

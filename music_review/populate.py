@@ -2,7 +2,7 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','music_review.settings')
 import django
 django.setup()
-from review_site.models import Artist, Rating, Album, EP, Single, Song, Gig, MusicReview, EPTrack, CustomUser, MusicReview
+from review_site.models import Artist, Rating, Album, EP, Single, Song, Gig, MusicReview, EPTrack, CustomUser, MusicReview, ContentType, Comment
 
 def populate():
     artists = [{'name': 'The Strokes'}, {'name': 'The Doors'}, {'name': 'The Chemical Brothers'}]
@@ -74,21 +74,34 @@ def populate():
              {'username': 'Jim Bob', 'password': '2468', 'email': '12345@gmail.com', 'bio': 'Music lover.'},
              {'username': 'Dave Smith', 'password': '789', 'email': '123456@gmail.com', 'bio': 'I like music!'}]
 
-    music_reviews = [{'user': 'craig.sinc', 'title': 'My Review of Is This It', 'content': 'I loved this album very much!', 'type': 'album'}]
-
+    music_reviews = [{'user': 'craig.sinc', 'title': 'My Review of Is This It', 'content': 'I loved this album very much!', 'type': 'album', 'name': 'Is This It'},
+    {'user': 'Jim Bob', 'title': 'My Review of Hey Boy Hey Girl', 'content': 'I loved this song very much!', 'type': 'song', 'name': 'Hey Boy Hey Girl'},
+    {'user': 'Dave Smith', 'title': 'My Review of Whatever, the EP', 'content': 'This is my fave Oasis EP!', 'type': 'ep', 'name': 'Whatever'}
+    ]
+    
+    music_ratings = [{'user': 'Jim Bob', 'rating': 4.2, 'type': 'song', 'name': 'Love Her Madly'},
+                     {'user': 'craig.sinc', 'rating': 4.7, 'type': 'album', 'name': 'Is This It'},
+                     {'user': 'Jim Bob', 'rating': 3.6, 'type': 'ep', 'name': 'Dreams'}]
+    
+    comments = [{'user': 'Dave Smith', 'content': 'I agree, I loved this too!', 'review': 'My Review of Is This It'},
+                {'user': 'craig.sinc', 'content': 'I disagree, I did not like it at all...', 'review': 'My Review of Hey Boy Hey Girl'},
+                {'user': 'Dave Smith', 'content': 'Agreed Jim, this track is great!', 'review': 'My Review of Hey Boy Hey Girl'}]
+    
     for user in users:
         add_user(user['username'], user['password'], user['email'], user['bio'])
-
-    for artist in artists:
-        a = add_artist(artist['name'])
-
+    
     for album in albums:
         a = add_artist(album['artist'])
         alb = add_album(a, album['name'], album['release_date'])
         for songAlbum, song_data in songs.items():
             if songAlbum == album['name']:
                 for songElts in song_data:
-                    add_song(a, songElts['name'], songElts['release_date'], alb)
+                    add_song(a, songElts['name'], songElts['release_date'], alb)  
+
+    for artist in artists:
+        a = add_artist(artist['name'])
+
+
 
     for gig in gigs:
         a = add_artist(gig['artist'])
@@ -105,6 +118,15 @@ def populate():
             if epSong == ep['name']:
                 for songElts in song_data:
                     add_ep_song(a, songElts['name'], songElts['release_date'], e)
+                    
+    for review in music_reviews:
+        add_review(review['user'], review['title'], review['content'], review['type'], review['name'])
+        
+    for rating in music_ratings:
+        add_rating(rating['user'], rating['rating'], rating['type'], rating['name'])
+        
+    for comment in comments:
+        add_comment( comment['review'], comment['user'], comment['content'])
 
 def add_artist(name):
     a = Artist.objects.get_or_create(name=name)[0]
@@ -171,14 +193,56 @@ def add_ep_song(artist, name, release_date, ep):
     s.save()
     return s
 
-def add_review(user, title, content, type):
-    user = CustomUser.objects.get(username=user)
-    r = MusicReview.objects.get_or_create(user=user, title=title,content=content)[0]
-    r.user=  user
+def add_review(user, title, content, content_type, name):
+    u = CustomUser.objects.get(username=user)
+    if(content_type=='album'):
+        music_type = Album.objects.get(name=name)
+    elif(content_type=='ep'):
+        music_type = EP.objects.get(name=name)
+    else:
+        music_type = Song.objects.get(name=name)
+        
+    object_id = music_type.id
+        
+    content_type_obj = ContentType.objects.get_for_model(music_type.__class__)
+    r =MusicReview.objects.get_or_create(user=u, title=title, content=content, content_type=content_type_obj, object_id = object_id)[0]
+    
+    r.user = u
     r.title = title
     r.content = content
+    r.content_type = content_type_obj
+    r.object_id = object_id
     r.save()
     return r
+
+def add_rating(user, rating, content_type, name):
+    u = CustomUser.objects.get(username=user)
+    if(content_type=='album'):
+        music_type = Album.objects.get(name=name)
+    elif(content_type=='ep'):
+        music_type = EP.objects.get(name=name)
+    else:
+        music_type = Song.objects.get(name=name)
+        
+    object_id = music_type.id
+    content_type_obj = ContentType.objects.get_for_model(music_type.__class__)
+    r = Rating.objects.get_or_create(user=u, rating=rating, content_type = content_type_obj, object_id=object_id)[0]
+    r.user = u
+    r.rating = rating
+    r.content_type = content_type_obj
+    r.object_id = object_id
+    r.save()
+    return r
+
+def add_comment(review, user, content):
+    u = CustomUser.objects.get(username=user)
+    r = MusicReview.objects.get(title=review)
+    c = Comment.objects.get_or_create(review=r, user=u, content=content)[0]
+    c.user = u
+    c.review = r
+    c.content = content
+    c.save()
+    return c
 
 if __name__ == '__main__':
     print('Starting population script...')
