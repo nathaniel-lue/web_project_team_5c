@@ -89,26 +89,19 @@ def populate():
     
     for user in users:
         add_user(user['username'], user['password'], user['email'], user['bio'])
-        
-    for review in music_reviews:
-        add_review(review['user'], review['title'], review['content'], review['type'], review['name'])
-        
-    for rating in music_ratings:
-        add_rating(rating['user'], rating['rating'], rating['type'], rating['name'])
-        
-    for comment in comments:
-        add_comment( comment['review'], comment['user'], comment['content'])
-
-    for artist in artists:
-        a = add_artist(artist['name'])
-
+    
     for album in albums:
         a = add_artist(album['artist'])
         alb = add_album(a, album['name'], album['release_date'])
         for songAlbum, song_data in songs.items():
             if songAlbum == album['name']:
                 for songElts in song_data:
-                    add_song(a, songElts['name'], songElts['release_date'], alb)
+                    add_song(a, songElts['name'], songElts['release_date'], alb)  
+
+    for artist in artists:
+        a = add_artist(artist['name'])
+
+
 
     for gig in gigs:
         a = add_artist(gig['artist'])
@@ -125,6 +118,15 @@ def populate():
             if epSong == ep['name']:
                 for songElts in song_data:
                     add_ep_song(a, songElts['name'], songElts['release_date'], e)
+                    
+    for review in music_reviews:
+        add_review(review['user'], review['title'], review['content'], review['type'], review['name'])
+        
+    for rating in music_ratings:
+        add_rating(rating['user'], rating['rating'], rating['type'], rating['name'])
+        
+    for comment in comments:
+        add_comment( comment['review'], comment['user'], comment['content'])
 
 def add_artist(name):
     a = Artist.objects.get_or_create(name=name)[0]
