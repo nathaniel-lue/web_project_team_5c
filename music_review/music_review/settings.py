@@ -15,8 +15,13 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-MEDIA_ROOT = BASE_DIR / "media"
 
+
+# The default user is the one defined in the model
+AUTH_USER_MODEL = 'review_site.CustomUser'
+
+MEDIA_DIR = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = MEDIA_DIR
 
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
@@ -71,6 +76,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.media",
             ],
         },
     },

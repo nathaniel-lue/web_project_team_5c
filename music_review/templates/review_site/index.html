@@ -32,7 +32,7 @@
         </div>
 
         <div class = "albumImage">
-          <img src="{% static 'images/craterCreek.jpg' %}">
+          <img src=""/>
         </div>
         
         <div class = "albumInfo">
@@ -45,41 +45,22 @@
       <div class = "otherAlbums">
 
         <div class = "otherAlbumOne">
+          {% if reviews %}
+          {% for review in reviews %}
+            <div class = "otherAlbumOneImage">
+              <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}"/>
+            </div>
 
-          <div class = "otherAlbumOneImage">
-            <img src="{% static 'images/balladsToBoogieToWreakingJoy.jpg' %}">
-          </div>
-
-          <div class = "otherAlbumOneInfo">
-            <p>Ballads to Boogie to</p>
-            <p>Wreaking Joy</p>
-            <p>5/5</p>
-          </div>
+            <div class = "otherAlbumOneInfo">
+              <p>{{ review.music_item.artist }}</p>
+              <p>{{ review.music_item.name }}</p>
+              <p>{{ review.rating }}</p>
+            </div>
+          {% endfor %}
+          {% endif %}
 
         </div>
-
-        <div class = "otherAlbumOne">
-          <div class = "otherAlbumOneImage">
-            <img src="{% static 'images/monochromeHeyLonelyPlanetFeartGlowwworms.jpg' %}">
-          </div>
-
-          <div class = "otherAlbumOneInfo">
-            <p>Monochrome</p>
-            <p>Hey, Lonely Planet, Feart, Glowwworms</p>
-            <p>5/5</p>
-          </div>
         </div>
-
-        <div class = "otherAlbumOne">
-          <div class = "otherAlbumOneImage">
-            <img src="{% static 'images/thingsHaventBeenTheSameKnivesChauFanClub.jpg' %}">
-          </div>
-
-          <div class = "otherAlbumOneInfo">
-            <p>Things Haven't Been the Same</p>
-            <p>Knives Chau Fan Club</p>
-            <p>5/5</p>
-          </div>
         </div>
       </div>
     

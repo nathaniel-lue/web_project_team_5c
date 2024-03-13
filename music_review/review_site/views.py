@@ -2,12 +2,18 @@ from review_site.models import Album
 from django.shortcuts import render, redirect
 from .forms import UserCreationForm
 from django.contrib.auth import login
-
+from review_site.models import *
+from django.http import JsonResponse
+from django.http import HttpResponse
+import json
 
 
 def index(request):
-    response = render(request, 'review_site/index.html')
-    return response
+    review_list = MusicReview.objects.order_by('-rating')[:5]
+    context_dict = {}
+    context_dict['reviews'] = review_list
+     
+    return render(request, 'review_site/index.html', context=context_dict)
 
 def explore(request):
     album = Album.objects.all()
@@ -28,7 +34,7 @@ def filter(request):
         album = album.filter(artist_popularity = artist_popularity)
     if rating:
         album = album.filter(rating = rating)
-    return JsonResponse({'Albums':list(albums.values())})
+    return JsonResponse({'Albums':list(album.values())})
 
 def artist_profile(request):
     return render(request, 'review_site/explore/artist_profile.html')
