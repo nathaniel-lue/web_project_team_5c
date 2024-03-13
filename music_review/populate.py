@@ -3,6 +3,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE','music_review.settings')
 import django
 django.setup()
 from review_site.models import Artist, Rating, Album, EP, Single, Song, Gig, MusicReview, EPTrack, CustomUser, MusicReview, ContentType, Comment
+from django.core.files import File
 
 def populate():
     artists = [{'name': 'The Strokes'}, {'name': 'The Doors'}, {'name': 'The Chemical Brothers'}]
@@ -74,9 +75,9 @@ def populate():
              {'username': 'Jim Bob', 'password': '2468', 'email': '12345@gmail.com', 'bio': 'Music lover.'},
              {'username': 'Dave Smith', 'password': '789', 'email': '123456@gmail.com', 'bio': 'I like music!'}]
 
-    music_reviews = [{'user': 'craig.sinc', 'title': 'My Review of Is This It', 'content': 'I loved this album very much!', 'type': 'album', 'name': 'Is This It'},
-    {'user': 'Jim Bob', 'title': 'My Review of Hey Boy Hey Girl', 'content': 'I loved this song very much!', 'type': 'song', 'name': 'Hey Boy Hey Girl'},
-    {'user': 'Dave Smith', 'title': 'My Review of Whatever, the EP', 'content': 'This is my fave Oasis EP!', 'type': 'ep', 'name': 'Whatever'}
+    music_reviews = [{'user': 'craig.sinc', 'rating': 4.5, 'title': 'My Review of Is This It', 'content': 'I loved this album very much!', 'type': 'album', 'name': 'Is This It'},
+    {'user': 'Jim Bob', 'title': 'My Review of Hey Boy Hey Girl', 'rating': 4.8, 'content': 'I loved this song very much!', 'type': 'song', 'name': 'Hey Boy Hey Girl'},
+    {'user': 'Dave Smith', 'title': 'My Review of Whatever, the EP', 'rating': 4.2, 'content': 'This is my fave Oasis EP!', 'type': 'ep', 'name': 'Whatever'}
     ]
     
     music_ratings = [{'user': 'Jim Bob', 'rating': 4.2, 'type': 'song', 'name': 'Love Her Madly'},
@@ -86,6 +87,7 @@ def populate():
     comments = [{'user': 'Dave Smith', 'content': 'I agree, I loved this too!', 'review': 'My Review of Is This It'},
                 {'user': 'craig.sinc', 'content': 'I disagree, I did not like it at all...', 'review': 'My Review of Hey Boy Hey Girl'},
                 {'user': 'Dave Smith', 'content': 'Agreed Jim, this track is great!', 'review': 'My Review of Hey Boy Hey Girl'}]
+    
     
     for user in users:
         add_user(user['username'], user['password'], user['email'], user['bio'])
@@ -100,8 +102,6 @@ def populate():
 
     for artist in artists:
         a = add_artist(artist['name'])
-
-
 
     for gig in gigs:
         a = add_artist(gig['artist'])
@@ -120,7 +120,7 @@ def populate():
                     add_ep_song(a, songElts['name'], songElts['release_date'], e)
                     
     for review in music_reviews:
-        add_review(review['user'], review['title'], review['content'], review['type'], review['name'])
+        add_review(review['user'], review['title'], review['content'], review['type'], review['name'], review['rating'])
         
     for rating in music_ratings:
         add_rating(rating['user'], rating['rating'], rating['type'], rating['name'])
@@ -143,10 +143,18 @@ def add_user(username, password, email, bio):
     u.save()
     return u
 
+album_art_directory = 'static/images/'
+album_images = {'Is This It': 'isthisit.png', 'Whatever': 'Whatever.png', 'Hey Boy Hey Girl': 'hbhg.jpg'}
+
 def add_album(artist, name, release_date):
     a = Album.objects.get_or_create(artist=artist, name=name, release_date=release_date)[0]
     a.artist = artist
     a.name = name
+    if name in album_images:
+        file_path = os.path.join(album_art_directory, album_images[name])
+        with open(file_path, 'rb') as file:
+            django_file = File(file)
+            a.album_art.save(album_images[name], django_file, save=True)
     a.release_date = release_date
     a.save()
     return a
@@ -181,6 +189,12 @@ def add_ep(artist, name, release_date):
     a.artist = artist
     a.name = name
     a.release_date = release_date
+
+    if name in album_images:
+        file_path = os.path.join(album_art_directory, album_images[name])
+        with open(file_path, 'rb') as file:
+            django_file = File(file)
+            a.album_art.save(album_images[name], django_file, save=True)
     a.save()
     return a
 
@@ -193,7 +207,7 @@ def add_ep_song(artist, name, release_date, ep):
     s.save()
     return s
 
-def add_review(user, title, content, content_type, name):
+def add_review(user, title, content, content_type, name, rating):
     u = CustomUser.objects.get(username=user)
     if(content_type=='album'):
         music_type = Album.objects.get(name=name)
@@ -201,17 +215,17 @@ def add_review(user, title, content, content_type, name):
         music_type = EP.objects.get(name=name)
     else:
         music_type = Song.objects.get(name=name)
-        
     object_id = music_type.id
         
     content_type_obj = ContentType.objects.get_for_model(music_type.__class__)
-    r =MusicReview.objects.get_or_create(user=u, title=title, content=content, content_type=content_type_obj, object_id = object_id)[0]
+    r =MusicReview.objects.get_or_create(user=u, title=title, content=content, content_type=content_type_obj, object_id = object_id, rating=rating)[0]
     
     r.user = u
     r.title = title
     r.content = content
     r.content_type = content_type_obj
     r.object_id = object_id
+    r.rating = rating
     r.save()
     return r
 

@@ -1,9 +1,14 @@
 from django.shortcuts import render
+from review_site.models import *
 
 # Create your views here.
 #test commit
 def index(request):
-    return render(request, 'review_site/index.html')
+    review_list = MusicReview.objects.order_by('-rating')[:5]
+    context_dict = {}
+    context_dict['reviews'] = review_list
+     
+    return render(request, 'review_site/index.html', context=context_dict)
 
 def explore(request):
     return render(request, 'review_site/explore.html')
