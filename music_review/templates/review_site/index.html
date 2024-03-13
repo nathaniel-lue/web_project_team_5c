@@ -26,19 +26,8 @@
 
     <div class = "middle">
       <div class = "topInfo">
-
         <div class = "title">
           <h2>Trending Reviews</h2>
-        </div>
-
-        <div class = "albumImage">
-          <img src=""/>
-        </div>
-        
-        <div class = "albumInfo">
-          <p>Crater Creek</p>
-          <p>Crater Creek</p>
-          <p>5/5</p>
         </div>
       </div>
 
@@ -48,7 +37,7 @@
           {% if reviews %}
           {% for review in reviews %}
             <div class = "otherAlbumOneImage">
-              <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}"/>
+              <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}" id="cover_art"/>
             </div>
 
             <div class = "otherAlbumOneInfo">

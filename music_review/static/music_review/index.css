@@ -65,3 +65,10 @@ text-align:left;
 min-width: auto;
 flex-shrink: 1;
 }
+
+#cover_art {
+  height: auto; 
+  width: auto; 
+  width: 500px; 
+  height: 500px;
+}

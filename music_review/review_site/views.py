@@ -16,9 +16,10 @@ def index(request):
     return render(request, 'review_site/index.html', context=context_dict)
 
 def explore(request):
-    album = Album.objects.all()
-    response = render(request, 'review_site/explore.html')
-    return response
+    review_list = MusicReview.objects.all()
+    context_dict = {}
+    context_dict['reviews'] = review_list
+    return render(request, 'review_site/explore.html', context=context_dict)
 
 def filter(request):
     genre = request.Get.get('Genre')

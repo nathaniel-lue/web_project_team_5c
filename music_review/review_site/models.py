@@ -60,7 +60,7 @@ class CollectionEntity(models.Model, RatingMixin):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     release_date = models.DateField()
-    album_art = models.ImageField(upload_to='album_art/', null=True, blank=True)
+    album_art = models.ImageField(upload_to='album_art/', null=True, blank=True, default='album_art/default-cover-art.png')
     
     def __str__(self):
         return self.name
