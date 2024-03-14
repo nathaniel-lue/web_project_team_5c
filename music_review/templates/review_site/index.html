@@ -1,40 +1,23 @@
+{% extends 'navbar_base.html' %}
 {% load static %}
-<!DOCTYPE	html>	
 
-<html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'music_review/style.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'music_review/index.css' %}" />
 
-  </head>
+{% block body %}
+  <div class = "top">
+    <h1 style = "margin: 10px;">Music Review Website</h1>
+    <a style = "margin: 10px;" href = "">Explore Music Reviews</a>
+  </div>
 
-  <body>
-    <div class = "topnav">
-      <a class = "active" href="index">Home</a>
-      <a href = "explore">Explore</a>
-      <a href = "post_review">Post a Review</a>
-      <a href  =  "#profile">Profile</a>
-      <input type="text" placeholder="Search...">
-      <a class = "login" href="#login">Login</a>
-    </div>
-
-    <div class = "top">
-      <h1 style = "margin: 10px;">Music Review Website</h1> 
-
-      <a style = "margin: 10px;" href = "">Explore Music Reviews</a>
-    </div>
-
-    <div class = "middle">
-      <div class = "topInfo">
-        <div class = "title">
-          <h2>Trending Reviews</h2>
-        </div>
+  <div class = "middle">
+    <div class = "topInfo">
+      <div class = "title">
+        <h2>Trending Reviews</h2>
       </div>
+    </div>
 
-      <div class = "otherAlbums">
-
-        <div class = "otherAlbumOne">
-          {% if reviews %}
+    <div class = "otherAlbums">
+      <div class = "otherAlbumOne">
+        {% if reviews %}
           {% for review in reviews %}
             <div class = "otherAlbumOneImage">
               <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}" id="cover_art"/>
@@ -46,14 +29,9 @@
               <p>{{ review.rating }}</p>
             </div>
           {% endfor %}
-          {% endif %}
-
-        </div>
-        </div>
-        </div>
+        {% endif %}
       </div>
-    
     </div>
-  </body>
+  </div>
 
-</html>
+{% endblock %}
