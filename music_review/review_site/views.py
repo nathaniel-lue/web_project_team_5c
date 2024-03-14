@@ -1,24 +1,23 @@
+from django.urls import reverse
 from review_site.models import Album
 from django.shortcuts import render, redirect
 from .forms import UserCreationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 from review_site.models import *
 from django.http import JsonResponse
 from django.http import HttpResponse
 import json
+from .models import MusicReview
 
 
 def index(request):
-    review_list = MusicReview.objects.order_by('-rating')[:5]
-    context_dict = {}
-    context_dict['reviews'] = review_list
-     
+    review_list = MusicReview.objects.all().order_by('-rating')[:5]
+    context_dict = {'reviews': review_list}
     return render(request, 'review_site/index.html', context=context_dict)
 
 def explore(request):
     review_list = MusicReview.objects.all()
-    context_dict = {}
-    context_dict['reviews'] = review_list
+    context_dict = {'reviews': review_list}
     return render(request, 'review_site/explore.html', context=context_dict)
 
 def filter(request):
@@ -83,6 +82,7 @@ def login_page(request):
 # Same as above
 def sign_up_page(request):
     return render(request, 'review_site/signup.html')
+
 
 def search(request):
     request.Get.get('query', '')

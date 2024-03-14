@@ -1,24 +1,9 @@
+{% extends 'navbar_base.html' %}
 {% load static %}
-<!DOCTYPE	html>	
 
-<html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'music_review/style.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'music_review/post_review.css' %}" />
 
-  </head>
-
-  <body>
-    <div class = "topnav">
-      <a class = "active" href="#index">Home</a>
-      <a href = "index/explore">Explore</a>
-      <a href = "postreview">Post a Review</a>
-      <a href  =  "#profile">Profile</a>
-      <input type="text" placeholder="Search...">
-      <a class = "login" href="#login">Login</a>
-    </div>
-
-    <div class = "middle">
+{% block body %}
+  <div class = "middle">
         <div class = "heading">
           <h1>Write a Review</h1>
         </div>
@@ -35,7 +20,7 @@
             <input type="review" value="">
 
           </div>
-          
+
           <div>
             <p>Rating</p>
             <input type="number" class="rating" name="rating" min="1" max="5">
@@ -53,6 +38,4 @@
 
         </div>
     </div>
-  </body>
-
-</html>
+{% endblock %}
