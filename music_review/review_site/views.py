@@ -57,8 +57,8 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
-            return redirect('explore')
+            login(request, user)    
+            return redirect('review_site:explore')
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
@@ -72,7 +72,7 @@ def login_page(request):
         user = authenticate(username=username, password=password)
         
         if user:
-            return redirect(reverse('view:index'))
+            return redirect(reverse('index'))
         else:
             print(f"Invalid login details: {username}, {password}")
             return HttpResponse("Invalid login details supplied.")

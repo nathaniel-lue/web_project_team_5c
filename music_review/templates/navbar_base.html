@@ -19,8 +19,6 @@
       <a href = "{% url 'review_site:post_review' %}">Post a Review</a>
 
       {% if user.is_authenticated %}
-        <!-- user one-to-one field with CustomUser? how to access profile -->
-        <a href = "{% url 'profile' user.pk %}">Profile</a>
       {% endif %}
 
       <input type="text" placeholder="Search...">
