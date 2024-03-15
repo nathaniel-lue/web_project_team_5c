@@ -20,10 +20,10 @@
         {% if reviews %}
           {% for review in reviews %}
             <div class = "otherAlbumOneImage">
-              <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}" id="cover_art"/>
+              <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}" id="cover_art" style="padding: 5px; margin: 5px"/>
             </div>
 
-            <div class = "otherAlbumOneInfo">
+            <div class = "otherAlbumOneInfo" >
               <p>{{ review.music_item.artist }}</p>
               <p>{{ review.music_item.name }}</p>
               <p>{{ review.rating }}</p>

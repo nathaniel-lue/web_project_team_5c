@@ -14,6 +14,6 @@ urlpatterns = [
     path('reviews/', include('review_site.urls')),
     path("accounts/", include("django.contrib.auth.urls")),
     path('accounts/register/', register, name='register'),
-    path('user_profile/<int:user_id>', project_views.show_profile, name='profile')
+    path('user_profile/<int:user_id>', project_views.show_profile, name='profile'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
