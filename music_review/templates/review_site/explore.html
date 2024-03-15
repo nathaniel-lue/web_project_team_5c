@@ -1,52 +1,50 @@
 <!DOCTYPE	html>
 {% extends 'navbar_base.html' %}
+{% load static %}
+
+
+{% block styles_import %}
+  <link rel="stylesheet" type="text/css" href="{% static 'music_review/style.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'music_review/explore.css' %}" />
+{% endblock %}
+
+
 {% block body %}
   <div class = "main">
-      <div class = "filter">
-        <div>
+    <div class = "filter">
+      <div>
         <p>Filter</p>
-        </div>
-
-        <div>
-          <p>Genre</p>
-
-          <button onclick="myFunction()" class="genre">All</button>
-
-          <p>Release Date</p>
-
-          <button onclick="myFunction()" class="genre">All</button>
-
-          <p>Artist Popularity</p>
-
-          <button onclick="myFunction()" class="genre">All</button>
-
-          <p>Rating</p>
-
-          <button onclick="myFunction()" class="genre">All</button>
-          <p></p>
-          <button type="applyFilter">Apply filters</button>
-        </div>
       </div>
-      <br>
-
-      <div class = "albums">
-        <div class = "topRow">
-          {% if reviews %}
-          {% for review in reviews %}
-          <div class = "albumOne">
-              <div class = "albumOneImage">
-                <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}" id="cover_art"/>
-              </div>
-
-              <div class="review_div" data-url="{% url 'review_site:forum' review_id=review.id %}">
-                <p>{{ review.music_item.artist }}</p>
-                <p>{{ review.music_item.name }}</p>
-                <p>{{ review.rating }}</p>
-              </div>
-          </div>
-          {% endfor %}
-          {% endif %}
-        </div>
+      <div>
+        <p>Genre</p>
+        <button onclick="myFunction()" class="genre">All</button>
+        <p>Release Date</p>
+        <button onclick="myFunction()" class="genre">All</button>
+        <p>Artist Popularity</p>
+        <button onclick="myFunction()" class="genre">All</button>
+        <p>Rating</p>
+        <button onclick="myFunction()" class="genre">All</button>
+        <p></p>
+        <button type="applyFilter">Apply filters</button>
       </div>
     </div>
+
+    <div class = "albums">
+      <div class = "topRow">
+        {% if reviews %}
+          {% for review in reviews %}<div class = "albumOne">
+            <div class = "albumOneImage">
+              <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}" id="cover_art"/>
+            </div>
+            <div class = "albumOneInfo clickable" data-url="{% url 'review_site:forum' review_id=review.id %}">
+              <p>{{ review.music_item.artist }}</p>
+              <p>{{ review.music_item.name }}</p>
+              <p>{{ review.rating }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
 {% endblock %}

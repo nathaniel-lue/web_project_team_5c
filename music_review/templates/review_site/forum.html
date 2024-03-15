@@ -36,8 +36,17 @@
             {% endif %}
 
             {% if user.is_authenticated %}
-                <input type="text" placeholder="Add comment..."/>
-                <button onclick="add_comment({{ review.id }})" class="genre">All</button>
+            <form id="commend_add" method="post" action="{% url 'review_site:forum' review_id=review.id %}">
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+                {% for field in form.visible_fields %}
+                    {{ field.help_text }}
+                    {{ field }}
+                {% endfor %}
+                <input type="submit" name="submit" value="Post Comment" />
+            </form>
             {% endif %}
         </div>
 

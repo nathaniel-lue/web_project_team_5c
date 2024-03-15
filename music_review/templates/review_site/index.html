@@ -2,6 +2,12 @@
 {% load static %}
 
 
+{% block styles_import %}
+  <link rel="stylesheet" type="text/css" href="{% static 'music_review/style.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'music_review/index.css' %}" />
+{% endblock %}
+
+
 {% block body %}
   <div class = "top">
     <h1 style = "margin: 10px;">Music Review Website</h1>
@@ -13,21 +19,40 @@
       <div class = "title">
         <h2>Trending Reviews</h2>
       </div>
-    </div>
+  </div>
 
-    <div class = "otherAlbums">
-      <div class = "otherAlbumOne">
+    <div class = "albums">
+      <div class = "topAlbum">
         {% if reviews %}
           {% for review in reviews %}
-            <div class = "otherAlbumOneImage">
-              <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}" id="cover_art" style="padding: 5px; margin: 5px"/>
+
+            <div class = "topalbumImage">
+              <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}" id="cover_art"/>
             </div>
 
-            <div class = "otherAlbumOneInfo" >
+            <div class = "otherAlbumOneInfo">
               <p>{{ review.music_item.artist }}</p>
               <p>{{ review.music_item.name }}</p>
               <p>{{ review.rating }}</p>
             </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class = "otherAlbums">
+        {% if reviews %}
+          {% for review in reviews %}
+
+          <div class = "otherAlbumsImage">
+            <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}" id="cover_art"/>
+          </div>
+
+          <div>
+            <p>{{ review.music_item.artist }}</p>
+            <p>{{ review.music_item.name }}</p>
+            <p>{{ review.rating }}</p>
+          </div>
+
           {% endfor %}
         {% endif %}
       </div>

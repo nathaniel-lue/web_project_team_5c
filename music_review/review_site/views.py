@@ -1,14 +1,11 @@
 from django.urls import reverse
 from review_site.models import Album
 from django.shortcuts import render, redirect
-from .forms import UserCreationForm
-from django.contrib.auth import login, authenticate
 from review_site.models import *
 from django.http import JsonResponse
-from django.http import HttpResponse
-from review_site.forms import CommentCreationForm
 import json
 from .models import MusicReview
+from review_site.forms import CommentCreationForm
 
 
 def index(request):
@@ -52,12 +49,9 @@ def forum(request, review_id):
         context_dict['comments'] = comments
     except Comment.DoesNotExist:
         context_dict['comments'] = None
-    return render(request, 'review_site/forum.html', context=context_dict)
-
-def add_comment(request, review_id):
-    form = CommentCreationForm()
+        
+    form = CommentCreationForm(request.POST)
     if request.method == 'POST':
-        form = CommentCreationForm(request.post)
         if form.is_valid():
             posted_comment = form.save(commit=False)
             review = MusicReview.objects.get(id=review_id)
@@ -66,6 +60,11 @@ def add_comment(request, review_id):
             posted_comment.save()
         else:
             print(form.errors)
+    context_dict['form'] = form
+        
+    return render(request, 'review_site/forum.html', context=context_dict)
+
+
 def artist_profile(request):
     return render(request, 'review_site/explore/artist_profile.html')
 
@@ -82,38 +81,7 @@ def music(request):
 def post_review(request):
     return render(request, 'review_site/post_review.html')
   
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('explore')
-    else:
-        form = UserCreationForm()
-    return render(request, 'registration/register.html', {'form': form})
   
-# Not sure if this is needed or not - Will update as I get more stuff done with authentication
-def login_page(request):
-     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        
-        user = authenticate(username=username, password=password)
-        
-        if user:
-            return redirect(reverse('view:index'))
-        else:
-            print(f"Invalid login details: {username}, {password}")
-            return HttpResponse("Invalid login details supplied.")
-     else:
-            return render(request, 'login.html')
-
-# Same as above
-def sign_up_page(request):
-    return render(request, 'review_site/signup.html')
-
-
 def search(request):
     request.Get.get('query', '')
     if query:

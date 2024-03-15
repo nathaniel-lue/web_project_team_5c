@@ -35,6 +35,11 @@
     margin: 1%
 }
 
+.albumOne:hover{
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
 .main .albums .albumOne .albumOneImage{
   margin:2%;
 }
