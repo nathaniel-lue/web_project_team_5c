@@ -1,10 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.urls import path
 from review_site import views as app_views
 from django.conf import settings
 from django.conf.urls.static import static
-from review_site.views import register
+from .views import *
 
 
 urlpatterns = [
