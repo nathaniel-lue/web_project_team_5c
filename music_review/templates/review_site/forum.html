@@ -1,0 +1,57 @@
+{% extends 'navbar_base.html' %}
+{% load static %}
+
+{% block body %}
+    {% if review %}
+        <h1 class="forum_titles">{{ review.title }} ({{ review.rating }} stars)</h1>
+        <h3 class="forum_small_titles">Written by: {{ review.user.username }}</h3>
+
+        <div class="horizontal_container">
+            <div class = "forum_image">
+                <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}" id="cover_art" style="padding: 5px; margin: 5px"/>
+            </div>
+
+            <div class = "forum_info" >
+                <p><strong>Artist: </strong>{{ review.music_item.artist }}</p>
+                <p><strong>Title: </strong>{{ review.music_item.name }}</p>
+                <p><strong>Rating: </strong>{{ review.rating }}</p>
+                <p><strong>Review: </strong>{{ review.content }}</p>
+            </div>
+        </div>
+        <br>
+
+        <div>
+            <h2 class="forum_titles">Comments:</h2>
+            <div class="comment_box_forum">
+                {% if comments %}
+                    <ul>
+                        {% for comment in comments %}
+                            <li>
+                                <p><strong> {{ comment.user.username }}: </strong>{{ comment.content }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+            {% else %}
+                <h4>No comments yet...</h4>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+            <form id="commend_add" method="post" action="{% url 'review_site:forum' review_id=review.id %}">
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+                {% for field in form.visible_fields %}
+                    {{ field.help_text }}
+                    {{ field }}
+                {% endfor %}
+                <input type="submit" name="submit" value="Post Comment" />
+            </form>
+            {% endif %}
+        </div>
+
+        </div>
+    {% else %}
+        <h2 class="forum_titles">Failed to load</h2>
+    {% endif %}
+{% endblock %}

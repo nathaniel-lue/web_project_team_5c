@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.core.exceptions import ValidationError  
 # from django.forms.fields import EmailField  
-from .models import CustomUser
+from .models import CustomUser, Comment, MusicReview, CustomUser
 
 # Basic implementaion of creating a user registration form
 # email stuff commented out for easier debugging
@@ -47,3 +47,9 @@ class UserCreationForm(UserCreationForm):
             password = self.cleaned_data['password1']  
         )  
         return user  
+
+class CommentCreationForm(forms.ModelForm):
+    content = forms.CharField(max_length=150, help_text="Add a comment.")
+    class Meta:
+        model = Comment
+        fields = ['content']

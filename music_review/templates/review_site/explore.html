@@ -1,3 +1,4 @@
+<!DOCTYPE	html>
 {% extends 'navbar_base.html' %}
 {% load static %}
 
@@ -35,7 +36,7 @@
             <div class = "albumOneImage">
               <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}" id="cover_art"/>
             </div>
-            <div class = "albumOneInfo">
+            <div class = "albumOneInfo clickable" data-url="{% url 'review_site:forum' review_id=review.id %}">
               <p>{{ review.music_item.artist }}</p>
               <p>{{ review.music_item.name }}</p>
               <p>{{ review.rating }}</p>

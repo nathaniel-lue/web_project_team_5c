@@ -5,6 +5,7 @@ from review_site.models import *
 from django.http import JsonResponse
 import json
 from .models import MusicReview
+from review_site.forms import CommentCreationForm
 
 
 def index(request):
@@ -32,6 +33,37 @@ def filter(request):
     if rating:
         album = album.filter(rating = rating)
     return JsonResponse({'Albums':list(album.values())})
+
+def forum(request, review_id):
+    context_dict = {}
+    try:
+        # Get the review (from the given review_id)
+        review = MusicReview.objects.get(id=review_id)
+        context_dict['review'] = review
+    except MusicReview.DoesNotExist:
+        context_dict['review'] = None
+        
+    try:
+        #Get any comments for the review
+        comments = Comment.objects.filter(review=review)
+        context_dict['comments'] = comments
+    except Comment.DoesNotExist:
+        context_dict['comments'] = None
+        
+    form = CommentCreationForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            posted_comment = form.save(commit=False)
+            review = MusicReview.objects.get(id=review_id)
+            posted_comment.review = review
+            posted_comment.user = request.user
+            posted_comment.save()
+        else:
+            print(form.errors)
+    context_dict['form'] = form
+        
+    return render(request, 'review_site/forum.html', context=context_dict)
+
 
 def artist_profile(request):
     return render(request, 'review_site/explore/artist_profile.html')
