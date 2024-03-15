@@ -2,6 +2,12 @@
 {% load static %}
 
 
+{% block styles_import %}
+  <link rel="stylesheet" type="text/css" href="{% static 'music_review/style.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'music_review/index.css' %}" />
+{% endblock %}
+
+
 {% block body %}
   <div class = "top">
     <h1 style = "margin: 10px;">Music Review Website</h1>

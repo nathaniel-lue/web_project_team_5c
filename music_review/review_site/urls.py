@@ -13,22 +13,3 @@ urlpatterns = [
     path("post_review/", views.post_review, name="post_review"),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
-
-
-
-
-"""
-Info on "django.contrib.auth.urls":
-This URL list includes:
-accounts/login/ [name='login']
-accounts/logout/ [name='logout']
-accounts/password_change/ [name='password_change']
-accounts/password_change/done/ [name='password_change_done']
-accounts/password_reset/ [name='password_reset']
-accounts/password_reset/done/ [name='password_reset_done']
-accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
-accounts/reset/done/ [name='password_reset_complete']
-
-Main source: https://docs.djangoproject.com/en/5.0/topics/auth/
-source: https://docs.djangoproject.com/en/5.0/topics/auth/default/
-"""
