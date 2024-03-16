@@ -6,17 +6,21 @@ from django.http import JsonResponse
 import json
 from .models import MusicReview
 from review_site.forms import CommentCreationForm
+from .models import MusicReview, Album, Comment
+from django.shortcuts import render
+from .models import Song, Singer, Album, ReviewTitle
+from django.shortcuts import render, get_object_or_404, redirect
 
 
 def index(request):
+    """Display the homepage with the latest reviews."""
     review_list = MusicReview.objects.all().order_by('-rating')[:5]
-    context_dict = {'reviews': review_list}
-    return render(request, 'review_site/index.html', context=context_dict)
+    return render(request, 'review_site/index.html', {'reviews': review_list})
 
 def explore(request):
+    """Display a page to explore all reviews."""
     review_list = MusicReview.objects.all()
-    context_dict = {'reviews': review_list}
-    return render(request, 'review_site/explore.html', context=context_dict)
+    return render(request, 'review_site/explore.html', {'reviews': review_list})
 
 def filter(request):
     genre = request.Get.get('Genre')
@@ -35,34 +39,25 @@ def filter(request):
     return JsonResponse({'Albums':list(album.values())})
 
 def forum(request, review_id):
-    context_dict = {}
     try:
-        # Get the review (from the given review_id)
         review = MusicReview.objects.get(id=review_id)
-        context_dict['review'] = review
     except MusicReview.DoesNotExist:
-        context_dict['review'] = None
-        
-    try:
-        #Get any comments for the review
-        comments = Comment.objects.filter(review=review)
-        context_dict['comments'] = comments
-    except Comment.DoesNotExist:
-        context_dict['comments'] = None
-        
-    form = CommentCreationForm(request.POST)
+        review = None
+
     if request.method == 'POST':
+        form = CommentCreationForm(request.POST)
         if form.is_valid():
             posted_comment = form.save(commit=False)
-            review = MusicReview.objects.get(id=review_id)
             posted_comment.review = review
             posted_comment.user = request.user
             posted_comment.save()
-        else:
-            print(form.errors)
-    context_dict['form'] = form
-        
-    return render(request, 'review_site/forum.html', context=context_dict)
+            return redirect('review_site:forum', review_id=review_id)
+    else:
+        form = CommentCreationForm()
+        comments = Comment.objects.filter(review=review) if review else []
+
+    return render(request, 'review_site/forum.html', {'review': review, 'comments': comments, 'form': form})
+
 
 
 def artist_profile(request):
@@ -79,19 +74,20 @@ def music(request):
     return render(request, 'review_site/music.html')
 
 def post_review(request):
+    """Display a form for posting a new review and handle the submission."""
     return render(request, 'review_site/post_review.html')
   
   
 def search(request):
-    request.Get.get('query', '')
+    query = request.GET.get('query', '')
+
+    context = {}
+
     if query:
-        songs = Song.objects.filter(title__icontains=query)
-        singer = Singer.objects.filter(artists=query)
-        album = Album.objects.filter(albums=query)
-        review_title = Review_title.objects.filter(titles=query)
+        context['songs'] = Song.objects.filter(title__icontains=query)
+        context['singer'] = Singer.objects.filter(artists__icontains=query) 
+        context['album'] = Album.objects.filter(albums__icontains=query) 
+        context['review_title'] = ReviewTitle.objects.filter(titles__icontains=query)  
+        return render(request, 'resultpage.html', context)
     else:
         return render(request, 'homepage.html')
-
-    dictionary = {'songs':songs, 'singer':singer, 'album':album, 'review_title':review_title}
-
-    return render(request, 'resultpage.html', dictionary)

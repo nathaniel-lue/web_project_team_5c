@@ -3,15 +3,16 @@ from django.urls import path, include
 from review_site import views as app_views
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import *
+from . import views
 
 
 urlpatterns = [
     path('', app_views.index, name='index'),
     path("admin/", admin.site.urls),
+    path('', include('review_site.urls', namespace='review_site')),
     path('reviews/', include('review_site.urls')),
     path("accounts/", include("django.contrib.auth.urls")),
-    path('accounts/register/', register, name='register'),
+    path('accounts/register/',views.register, name='register'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 """
