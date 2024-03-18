@@ -8,7 +8,7 @@ from .models import MusicReview
 from review_site.forms import CommentCreationForm
 from .models import MusicReview, Album, Comment
 from django.shortcuts import render
-from .models import Song, Singer, Album, ReviewTitle
+from .models import Song, Single, Album, MusicReview
 from django.shortcuts import render, get_object_or_404, redirect
 
 
@@ -85,9 +85,9 @@ def search(request):
 
     if query:
         context['songs'] = Song.objects.filter(title__icontains=query)
-        context['singer'] = Singer.objects.filter(artists__icontains=query) 
+        context['singer'] = Single.objects.filter(artists__icontains=query) 
         context['album'] = Album.objects.filter(albums__icontains=query) 
-        context['review_title'] = ReviewTitle.objects.filter(titles__icontains=query)  
+        context['review'] = MusicReview.objects.filter(titles__icontains=query)  
         return render(request, 'resultpage.html', context)
     else:
         return render(request, 'homepage.html')
