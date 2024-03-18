@@ -5,7 +5,7 @@ from review_site.models import *
 from django.http import JsonResponse
 import json
 from .models import MusicReview
-from review_site.forms import CommentCreationForm
+from review_site.forms import CommentCreationForm, ReviewCreationForm
 from .models import MusicReview, Album, Comment
 from django.shortcuts import render
 from .models import Song, Single, Album, MusicReview
@@ -58,7 +58,64 @@ def forum(request, review_id):
 
     return render(request, 'review_site/forum.html', {'review': review, 'comments': comments, 'form': form})
 
+def post_review(request):
+    context_dict = {}
+    if request.method == 'POST':
+        form = ReviewCreationForm(request.POST, request.FILES)
+        context_dict['form'] = form
+        if form.is_valid():
+            posted_review = form.save(commit=False)
+            review_type = form.cleaned_data['review_type']
+            artist_name = form.cleaned_data['artist']
+            music_title = form.cleaned_data['content_title']
+            review_title = form.cleaned_data['title']
+            content = form.cleaned_data['content']
+            rating = form.cleaned_data['rating']
+            release_date = form.cleaned_data['release_date']
+            
+            if release_date == "" or release_date == None:
+                release_date = "2000-01-01" # Give a default value for the release date if not given
+                
+                
+                
+            album_art = ""
+            if ('album_upload' in request.FILES):
+                album_art = request.FILES['album_upload']
+            u = request.user
+            posted_review.user = u
 
+            # Get/create artist and relevant album/ep/single object 
+            try:
+                artist_obj = Artist.objects.get_or_create(name=artist_name)[0]
+                if (review_type == "Album"):
+                    album_obj = Album.objects.get_or_create(artist=artist_obj, name=music_title, release_date=release_date)[0] 
+                    if(album_art != ""): 
+                        album_obj.album_art = album_art    
+                    album_obj.save()
+                    content_obj = album_obj
+                elif (review_type == "EP"):
+                    content_obj = EP.objects.get_or_create(artist=artist_obj, name=music_title, release_date=release_date)[0]
+                else:
+                    content_obj = Single.objects.get_or_create(artist=artist_obj, name=music_title, release_date=release_date)[0]
+            except Exception as e:
+                print("Error occurred " + e)
+                return redirect('review_site:explore')
+
+            object_id = content_obj.id
+            content_type_obj = ContentType.objects.get_for_model(content_obj.__class__)
+            
+            posted_review.title = review_title
+            posted_review.content = content
+            posted_review.rating = rating
+            posted_review.content_type = content_type_obj
+            posted_review.object_id = object_id
+            posted_review.save() 
+            return redirect('review_site:explore')
+    else:
+        form = ReviewCreationForm()
+        context_dict['form'] = form
+    
+    return render(request, 'review_site/post_review.html', context=context_dict)
 
 def artist_profile(request):
     return render(request, 'review_site/explore/artist_profile.html')
@@ -72,10 +129,6 @@ def leaderboard(request):
 
 def music(request):
     return render(request, 'review_site/music.html')
-
-def post_review(request):
-    """Display a form for posting a new review and handle the submission."""
-    return render(request, 'review_site/post_review.html')
   
   
 def search(request):

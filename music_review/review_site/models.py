@@ -79,7 +79,7 @@ class EP(CollectionEntity):
 class MusicEntity(models.Model, RatingMixin):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    release_date = models.DateField()
+    release_date = models.DateField(null=True, blank=True)
     
     def __str__(self):
         return f"{self.artist}: {self.name}"
