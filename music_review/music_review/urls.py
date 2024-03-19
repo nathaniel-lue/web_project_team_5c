@@ -9,7 +9,6 @@ from . import views
 urlpatterns = [
     path('', app_views.index, name='index'),
     path("admin/", admin.site.urls),
-    path('', include('review_site.urls', namespace='review_site')),
     path('reviews/', include('review_site.urls')),
     path("accounts/", include("django.contrib.auth.urls")),
     path('accounts/register/',views.register, name='register'),
