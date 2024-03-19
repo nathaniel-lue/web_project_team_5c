@@ -99,6 +99,9 @@ def post_review(request):
                     content_obj = album_obj
                 elif (review_type == "EP"):
                     content_obj = EP.objects.get_or_create(artist=artist_obj, name=music_title, release_date=release_date)[0]
+                    if(album_art != ""): 
+                        content_obj.album_art = album_art    
+                    content_obj.save()
                 else:
                     content_obj = Single.objects.get_or_create(artist=artist_obj, name=music_title, release_date=release_date)[0]
             except Exception as e:
@@ -132,7 +135,29 @@ def leaderboard(request):
     return render(request, 'review_site/leaderboard.html')
 
 def music(request):
-    return render(request, 'review_site/music.html')
+    albums_with_reviews = []
+    albums_no_reviews = []
+
+    all_albums = Album.objects.all()
+    for album in all_albums:
+        all_album_reviews = MusicReview.objects.filter(content_type=ContentType.objects.get_for_model(Album), object_id=album.id)
+        if all_album_reviews.exists():
+            average_rating = average_rating_review(content_type=ContentType.objects.get_for_model(Album), object_id=album.id)
+            albums_with_reviews.append((album, all_album_reviews, average_rating))
+        else:
+            albums_no_reviews.append(album)
+            
+    all_eps = EP.objects.all()
+    for ep in all_eps:
+        all_ep_reviews = MusicReview.objects.filter(content_type=ContentType.objects.get_for_model(EP), object_id=ep.id)
+        if all_ep_reviews.exists():
+            average_rating = average_rating_review(content_type=ContentType.objects.get_for_model(EP), object_id=ep.id)
+            albums_with_reviews.append((ep, all_ep_reviews, average_rating))
+        else:
+            albums_no_reviews.append(ep)
+            
+    return render(request, 'review_site/music.html', {'albums_with_reviews': albums_with_reviews, 'albums_no_reviews': albums_no_reviews})
+
   
   
 def search(request):

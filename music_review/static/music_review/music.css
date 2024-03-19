@@ -1,0 +1,11 @@
+.albumBlockInfo {
+    width: 450px;
+    background-color: white;
+    padding: 5px;
+}
+
+.albumBox{
+    display:flex;
+    flex-direction: column;
+    margin: 2%;
+}

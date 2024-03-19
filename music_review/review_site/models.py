@@ -124,6 +124,14 @@ class MusicReview(models.Model):
 
     def __str__(self):
         return f"{self.title} by {self.user.username}"
+
+def average_rating_review(content_type, object_id):
+    reviews = MusicReview.objects.filter(content_type=content_type, object_id=object_id)
+    average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
+    
+    if average_rating is None:
+        return None
+    return round(average_rating, 2)
     
 
 class Comment(models.Model):

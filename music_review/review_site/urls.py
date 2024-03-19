@@ -13,5 +13,6 @@ urlpatterns = [
     path("explore/", views.explore, name='explore'),
     path("post_review/", views.post_review, name="post_review"),
     path('forum/<int:review_id>/', views.forum, name='forum'),
+    path('music/', views.music, name="music"),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
