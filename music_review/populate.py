@@ -6,10 +6,23 @@ from review_site.models import Artist, Rating, Album, EP, Single, Song, Gig, Mus
 from django.core.files import File
 
 def populate():
-    artists = [{'name': 'The Strokes'}, {'name': 'The Doors'}, {'name': 'The Chemical Brothers'}]
+    artists = [{'name': 'The Strokes'}, {'name': 'The Doors'}, {'name': 'The Chemical Brothers'},{'name':'Mitsubishi Suicide'},
+    {"name":"Crater Creek"},{'name':'Big Thief'},{'name':'The Microphones'},{'name':'Slint'},{'name':'My Rushmore'},
+    {'name':'Dot Pixis'},{'name':'Hey, Lonely Planet'},{'name':'Knives Chau Fan Club'},{'name':'Dying Giant'}]
+
+
+    
+
+
     albums = [{'artist': 'The Strokes', 'name': 'Is This It', 'release_date': '2001-07-30'},
               {'artist': 'The Doors', 'name': 'L.A. Woman', 'release_date': '1971-04-19'},
-              {'artist': 'The Chemical Brothers', 'name': 'Surrender', 'release_date': '1999-01-01'}]
+              {'artist': 'The Chemical Brothers', 'name': 'Surrender', 'release_date': '1999-01-01'},
+              {'artist': 'Mitsubishi Suicide', 'name': 'Mitsubishi Suicide', 'release_date': '2024-02-28'},
+              {'artist': 'Crater Creek', 'name': 'Crater Creek', 'release_date': '2022-10-22'},
+              {'artist': 'Crater Creek', 'name': 'Crater Creek', 'release_date': '2022-10-22'},
+              {'artist': 'The Microphones', 'name':'The Glow, Pt. 2', 'release_date': '2001-09-11'},
+              {'artist': 'Slint', 'name':'Spiderland', 'release_date': '1991-03-15'},
+              {'artist': 'Slint', 'name':'Tweez', 'release_date': '1989-01-01'}]
 
     songs = {'Is This It': [
         {'name': 'Is This It', 'release_date': '2001-06-30'},
@@ -49,15 +62,94 @@ def populate():
             {'name': 'Surrender', 'release_date': '1999-06-22'},
             {'name': 'Dream On', 'release_date': '1999-06-22'},
             {'name': 'The Private Psychedelic Reel', 'release_date': '1999-06-22'}
-        ]}
+        ],
+        'Mitsubishi Suicide': [
+             {'name': 'I Stopped Watching Films', 'release_date': '2024-02-28'},
+             {'name': 'Marriage of Figaro', 'release_date': '2024-02-28'},
+             {'name': 'Song for Ciara H', 'release_date': '2024-02-28'},
+             {'name': 'Ilex Court', 'release_date': '2024-02-28'},
+             {'name': 'Shooting Myself with an Amazonian Blowgun', 'release_date': '2024-02-28'},
+        ],
+        'Crater Creek':[
+            {'name': 'end of the summer', 'release_date': '2022-10-22'},
+            {'name': 'robot witches from planet hell', 'release_date': '2022-10-22'},
+            {'name': 'wereclown', 'release_date': '2022-10-22'},
+            {'name': 'unidentified crying object', 'release_date': '2022-10-22'},
+            {'name': 'sweet tooth', 'release_date': '2022-10-22'},
+            {'name': 'pumpkin people', 'release_date': '2022-10-22'},
+            {'name': 'guising', 'release_date': '2022-10-22'},
+            {'name': 'caveman high school', 'release_date': '2022-10-22'},
+            {'name': 'occult classic', 'release_date': '2022-10-22'},
+            {'name': 'see thru', 'release_date': '2022-10-22'},
+            {'name': "there's something in the lake!!!", 'release_date': '2022-10-22'},
+            {'name': 'goo', 'release_date': '2022-10-22'},
+            {'name': 'bottomless pit', 'release_date': '2022-10-22'},
+
+        ],
+        'The Glow, Pt. 2':[
+            {'name': 'I Want Wind to Blow', 'release_date': '2001-09-11'},
+            {'name': 'The Glow, Pt. 2', 'release_date': '2001-09-11'},
+            {'name': 'The Moon', 'release_date': '2001-09-11'},
+            {'name': 'Headless Horseman', 'release_date': '2001-09-11'},
+            {'name': 'My Roots are Strong and Deep', 'release_date': '2001-09-11'},
+            {'name': 'Intrumental', 'release_date': '2001-09-11'},
+            {'name': 'The Mansion', 'release_date': '2001-09-11'},
+            {'name': '(Something)', 'release_date': '2001-09-11'},
+            {'name': '(Something)-1', 'release_date': '2001-09-11'},
+            {'name': "I'll Not Contain You", 'release_date': '2001-09-11'},
+            {'name': 'The Gleam, Pt. 2', 'release_date': '2001-09-11'},
+            {'name': 'Map', 'release_date': '2001-09-11'},
+            {'name': "You'll Be in the Air", 'release_date': '2001-09-11'},
+            {'name': 'I Want to Be Cold', 'release_date': '2001-09-11'},
+            {'name': 'I Am Bored', 'release_date': '2001-09-11'},
+            {'name': 'I Felt My Size', 'release_date': '2001-09-11'},
+            {'name': 'Instrumental-2', 'release_date': '2001-09-11'},
+            {'name': 'I Felt Your Shape', 'release_date': '2001-09-11'},
+            {'name': 'Samurai Sword', 'release_date': '2001-09-11'},
+            {'name': 'My Warm Blood', 'release_date': '2001-09-11'},
+        ],
+        'Spiderland':[
+            {'name': 'Breadcrumb Trail', 'release_date': '1991-03-15'},
+            {'name': 'Nosferatu Man', 'release_date': '1991-03-15'},
+            {'name': 'Don, Aman', 'release_date': '1991-03-15'},
+            {'name': 'Washer', 'release_date': '1991-03-15'},
+            {'name': 'For Dinner...', 'release_date': '1991-03-15'},
+            {'name': 'Good Morning Captain', 'release_date': '1991-03-15'},
+
+        ],
+        'Tweez':[
+            {'name': 'Ron', 'release_date': '1989-01-01'},
+            {'name': 'Nan Ding', 'release_date': '1989-01-01'},
+            {'name': 'Carol', 'release_date': '1989-01-01'},
+            {'name': 'Kent', 'release_date': '1989-01-01'},
+            {'name': 'Charlotte', 'release_date': '1989-01-01'},
+            {'name': 'Darlene', 'release_date': '1989-01-01'},
+            {'name': 'Warren', 'release_date': '1989-01-01'},
+            {'name': 'Pat', 'release_date': '1989-01-01'},
+            {'name': 'Rhoda', 'release_date': '1989-01-01'},
+        ]
+        }
 
     gigs = [{'artist': 'The Strokes', 'venue': 'The Barrowlands', 'date': '2002-03-02'},
             {'artist': 'The Vaccines', 'venue': 'O2 Academy Glasgow', 'date': '2024-02-25'},
-            {'artist': 'Rick Astley', 'venue': 'The Hydro', 'date': '2024-03-27'}]
+            {'artist': 'Rick Astley', 'venue': 'The Hydro', 'date': '2024-03-27'},
+            {'artist': 'My Rushmore', 'venue': 'The Hug and Pint', 'date': '2024-03-01'},
+            {'artist': 'Visiting Friends', 'venue': 'The Hug and Pint', 'date': '2024-03-01'},
+            {'artist': 'My Rushmore', 'venue': 'Audiolounge', 'date': '2024-01-26'},
+            {'artist': 'Dying Giant', 'venue': 'Audiolounge', 'date': '2024-01-26'},
+            {'artist': 'Hey, Lonely Planet', 'venue': 'Audiolounge', 'date': '2024-01-26'},
+            {'artist': 'Dot Pixis', 'venue': 'Audiolounge', 'date': '2024-01-26'},
+            {'artist': 'My Rushmore', 'venue': 'Old Hairdressers', 'date': '2024-10-27'},
+            {'artist': 'Hey, Lonely Planet', 'venue': 'Old Hairdressers', 'date': '2024-10-27'},
+            {'artist': 'Knives Chau Fan Club', 'venue': 'Old Hairdressers', 'date': '2024-10-27'},
+            {'artist': 'Crater Creek', 'venue': 'Old Hairdressers', 'date': '2024-10-27'},
+            ]
 
     singles = [{'artist': 'The Stone Roses', 'name': 'Sally Cinnamon', 'release_date': '1987-01-02'},
                {'artist': 'The Vaccines', 'name': 'Norgaard', 'release_date': '2011-04-14'},
-               {'artist': 'Alice In Chains', 'name': 'Would?', 'release_date': '1992-10-29'}]
+               {'artist': 'Alice In Chains', 'name': 'Would?', 'release_date': '1992-10-29'},
+               {'artist': 'Big Thief', 'name': 'Vampire Empire', 'release_date': '2023-06-19'},
+               ]
 
     eps = [{'artist': 'Oasis', 'name': 'Whatever', 'release_date': '1994-12-18'},
            {'artist': 'The Snuts', 'name': 'Dreams', 'release_date': '2023-07-01'}]
@@ -144,7 +236,8 @@ def add_user(username, password, email, bio):
     return u
 
 album_art_directory = 'static/images/'
-album_images = {'Is This It': 'isthisit.png', 'Whatever': 'Whatever.png', 'Surrender': 'hbhg.jpg'}
+album_images = {'Is This It': 'isthisit.png', 'Whatever': 'Whatever.png', 'Surrender': 'hbhg.jpg',
+                'Mitsubishi Suicide':'mitsubishiSuicideMitsubishiSuicide.jpg'}
 
 def add_album(artist, name, release_date):
     a = Album.objects.get_or_create(artist=artist, name=name, release_date=release_date)[0]

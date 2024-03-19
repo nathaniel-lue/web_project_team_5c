@@ -14,8 +14,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 def index(request):
     """Display the homepage with the latest reviews."""
-    review_list = MusicReview.objects.all().order_by('-rating')[:5]
-    return render(request, 'review_site/index.html', {'reviews': review_list})
+    review_one = MusicReview.objects.all().order_by('-rating')[0]
+    review_two = MusicReview.objects.all().order_by('-rating')[1]
+    review_three = MusicReview.objects.all().order_by('-rating')[2]
+
+    return render(request, 'review_site/index.html', {'review_one': review_one,'review_two': review_two,'review_two':review_three})
 
 def explore(request):
     """Display a page to explore all reviews."""

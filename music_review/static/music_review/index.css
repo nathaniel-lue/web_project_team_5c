@@ -1,5 +1,3 @@
-
-
 .top {
   background-color: rgb(123, 123, 123);
   border:5px solid #852020;
@@ -66,13 +64,6 @@ min-width: auto;
 flex-shrink: 1;
 }
 
-.middle .otherAlbums {
-  
-}
-
-.middle .otherAlbums .otherAlbumsImage{
-  
-}
 #cover_art {
   height: auto; 
   width: auto; 

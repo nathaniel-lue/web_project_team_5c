@@ -5,13 +5,18 @@
 {% block styles_import %}
   <link rel="stylesheet" type="text/css" href="{% static 'music_review/style.css' %}" />
   <link rel="stylesheet" type="text/css" href="{% static 'music_review/index.css' %}" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 {% endblock %}
 
 
 {% block body %}
+<div class = "container">
   <div class = "top">
     <h1 style = "margin: 10px;">Music Review Website</h1>
-    <a style = "margin: 10px;" href = "">Explore Music Reviews</a>
   </div>
 
   <div class = "middle">
@@ -23,40 +28,76 @@
 
     <div class = "albums">
       <div class = "topAlbum">
-        {% if reviews %}
-          {% for review in reviews %}
+        
 
-            <div class = "topalbumImage">
-              <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}" id="cover_art"/>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol>
+      
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+              {% if review_one %}
+              <img src="{{ MEDIA_URL }}{{ review_one.music_item.album_art }}" alt="first album" style="width:100%;">
+              <p>{{ review_one.music_item.artist }}</p>
+              <p>{{ review_one.music_item.name }}</p>
+              <p>{{ review_one.rating }}</p>
+              {% else %}     
+              <img src="{% static 'images/notFound.png' %}" alt="second album" style="width:100%;">
+              <p>Album</p>
+              <p>Not</p>
+              <p>Found</p>
+              {% endif %}
             </div>
-
-            <div class = "otherAlbumOneInfo">
-              <p>{{ review.music_item.artist }}</p>
-              <p>{{ review.music_item.name }}</p>
-              <p>{{ review.rating }}</p>
+      
+            <div class="item">
+              <img src="{{ MEDIA_URL }}{{ review_two.music_item.album_art }}" alt="second album" style="width:100%;">
+              {% if review_two %}
+              <p>{{ review_two.music_item.artist }}</p>
+              <p>{{ review_two.music_item.name }}</p>
+              <p>{{ review_two.rating }}</p>
+              {% else %}     
+              <img src="{% static 'images/notFound.png' %}" alt="second album" style="width:100%;">
+              <p>Album</p>
+              <p>Not</p>
+              <p>Found</p>
+              {% endif %}
             </div>
-          {% endfor %}
-        {% endif %}
-      </div>
+          
+            <div class="item">
+              {% if review_three %}
+                <img src="{{ MEDIA_URL }}{{ review_three.music_item.album_art }}" alt="third album" style="width:100%;">
+                <p>{{ review_three.music_item.artist }}</p>
+                <p>{{ review_three.music_item.name }}</p>
+                <p>{{ review_three.rating }}</p>   
+              {% else %}     
+                <img src="{% static 'images/notFound.png' %}" alt="second album" style="width:100%;">
+                <p>Album</p>
+                <p>Not</p>
+                <p>Found</p>
+              {% endif %}
 
-      <div class = "otherAlbums">
-        {% if reviews %}
-          {% for review in reviews %}
-
-          <div class = "otherAlbumsImage">
-            <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}" id="cover_art"/>
+            </div>
           </div>
+      
+          <!-- Left and right controls -->
+          <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+          </a>
+          
+        </div>
 
-          <div>
-            <p>{{ review.music_item.artist }}</p>
-            <p>{{ review.music_item.name }}</p>
-            <p>{{ review.rating }}</p>
-          </div>
-
-          {% endfor %}
-        {% endif %}
       </div>
     </div>
   </div>
-
+</div>
 {% endblock %}
