@@ -10,11 +10,6 @@ app_name = 'review_site'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path("admin/", admin.site.urls),
-    path('', include('review_site.urls', namespace='review_site')),
-    path('reviews/', include('review_site.urls')),
-    path("accounts/", include("django.contrib.auth.urls")),
-    path('accounts/register/', views.register, name='register'),
     path("explore/", views.explore, name='explore'),
     path("post_review/", views.post_review, name="post_review"),
     path('forum/<int:review_id>/', views.forum, name='forum'),
