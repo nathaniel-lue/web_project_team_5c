@@ -18,7 +18,7 @@ def index(request):
     review_two = MusicReview.objects.all().order_by('-rating')[1]
     review_three = MusicReview.objects.all().order_by('-rating')[2]
 
-    return render(request, 'review_site/index.html', {'review_one': review_one,'review_two': review_two,'review_two':review_three})
+    return render(request, 'review_site/index.html', {'review_one': review_one,'review_two': review_two,'review_three':review_three})
 
 def explore(request):
     """Display a page to explore all reviews."""
