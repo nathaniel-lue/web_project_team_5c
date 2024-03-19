@@ -6,18 +6,7 @@ from review_site.models import Artist, Rating, Album, EP, Single, Song, Gig, Mus
 from django.core.files import File
 
 def populate():
-<<<<<<< HEAD
-    artists = [{'name': 'The Strokes'}, {'name': 'The Doors'}, {'name': 'The Chemical Brothers'},{'name':'Mitsubishi Suicide'},
-    {"name":"Crater Creek"},{'name':'Big Thief'},{'name':'The Microphones'},{'name':'Slint'},{'name':'My Rushmore'},
-    {'name':'Dot Pixis'},{'name':'Hey, Lonely Planet'},{'name':'Knives Chau Fan Club'},{'name':'Dying Giant'}]
-
-
-    
-
-
-=======
     artists = [{'name': 'The Strokes'}, {'name': 'The Doors'}, {'name': 'The Chemical Brothers'}, {'name': 'Stevie Wonder'}]
->>>>>>> decc694794aae2a96b50fd87bb56671e22bac1a0
     albums = [{'artist': 'The Strokes', 'name': 'Is This It', 'release_date': '2001-07-30'},
               {'artist': 'The Doors', 'name': 'L.A. Woman', 'release_date': '1971-04-19'},
               {'artist': 'The Chemical Brothers', 'name': 'Surrender', 'release_date': '1999-01-01'},
