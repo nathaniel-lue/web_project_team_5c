@@ -8,34 +8,13 @@
           <h1>Write a Review</h1>
         </div>
 
-        <div class = "review">
-          <div>
-            <p>Album/Track Name</p>
-            <input type="review" value="">
-
-          </div>
-
-          <div>
-            <p>Album Name</p>
-            <input type="review" value="">
-
-          </div>
-
-          <div>
-            <p>Rating</p>
-            <input type="number" class="rating" name="rating" min="1" max="5">
-
-          </div>
-
-          <div>
-            <p>Review</p>
-            <textarea class="w3review" name="review" rows="4" cols="50"></textarea>
-          </div>
-
-          <div>
-            <button onclick="myFunction()" class = "submit">Submit</button>
-          </div>
-
+        {% if user.is_authenticated %}
+        <form id="add_review" method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+              {{ form.as_p }}
+            <input type="submit" name="submit" value="Post Review" />
+        </form>
+        {% endif %}
         </div>
     </div>
 {% endblock %}
