@@ -38,7 +38,9 @@ img { width: 100%; height: auto; }
 .topnav a.login {
     float:right;
 }
-
+.topnav a.logout {
+  float:right;
+}
 .review_div{
   background-color: white;
   width: 490px;
