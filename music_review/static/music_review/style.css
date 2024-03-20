@@ -1,17 +1,16 @@
 body {
-    background-color: black;
+    background-color:  #F3EED9;
 }
 
 img { width: 100%; height: auto; }
 
 
-/* Add a black background color to the top navigation */
 .topnav {
-    background-color: #c42f2f;
+    background-color: #A2B29F ;
     overflow: hidden;
+    
   }
   
-  /* Style the links inside the navigation bar */
 .topnav a {
     float: left;
     color: #000000;
@@ -21,17 +20,11 @@ img { width: 100%; height: auto; }
     font-size: 17px;
   }
   
-  /* Change the color of links on hover */
 .topnav a:hover {
-    background-color: #901600;
+    background-color: #7c887a ;
     color: black;
   }
   
-  /* Add a color to the active/current link */
-.topnav a.active {
-    background-color: #5a0c00;
-    color: rgb(217, 217, 217);
-  }
 
 .topnav input[type=text] {
     float: right;

@@ -3,7 +3,7 @@
 .main { 
   display:flex;
   flex-direction: row;
-  background-color: black;
+  background-color: white;
 }
 
 .main .filter{

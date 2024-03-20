@@ -14,7 +14,14 @@
               {{ form.as_p }}
             <input type="submit" name="submit" value="Post Review" />
         </form>
+
+        {% else %}
+          <p>Please register or login</p>
+          <a class = "login" href="{% url 'login' %}">Login</a>
+          <a href="{% url 'register' %}">Register</a>
         {% endif %}
+
+
         </div>
     </div>
 {% endblock %}
