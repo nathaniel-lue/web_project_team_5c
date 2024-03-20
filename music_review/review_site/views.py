@@ -156,32 +156,35 @@ def music(request):
     albums_with_reviews = []
     albums_no_reviews = []
 
-    all_albums = Album.objects.all()
-    for album in all_albums:
-        all_album_reviews = MusicReview.objects.filter(content_type=ContentType.objects.get_for_model(Album), object_id=album.id)
-        if all_album_reviews.exists():
-            average_rating = average_rating_review(content_type=ContentType.objects.get_for_model(Album), object_id=album.id)
-            albums_with_reviews.append((album, all_album_reviews, average_rating))
-        else:
-            albums_no_reviews.append(album)
-            
-    all_eps = EP.objects.all()
-    for ep in all_eps:
-        all_ep_reviews = MusicReview.objects.filter(content_type=ContentType.objects.get_for_model(EP), object_id=ep.id)
-        if all_ep_reviews.exists():
-            average_rating = average_rating_review(content_type=ContentType.objects.get_for_model(EP), object_id=ep.id)
-            albums_with_reviews.append((ep, all_ep_reviews, average_rating))
-        else:
-            albums_no_reviews.append(ep)
-            
-    all_singles = Single.objects.all()
-    for single in all_singles:
-        all_single_reviews = MusicReview.objects.filter(content_type=ContentType.objects.get_for_model(Single), object_id=single.id)
-        if all_single_reviews.exists():
-            average_rating = average_rating_review(content_type=ContentType.objects.get_for_model(Single), object_id=single.id)
-            albums_with_reviews.append((single, all_single_reviews, average_rating))
-        else:
-            albums_no_reviews.append(single)   
+    try:
+        all_albums = Album.objects.all()
+        for album in all_albums:
+            all_album_reviews = MusicReview.objects.filter(content_type=ContentType.objects.get_for_model(Album), object_id=album.id)
+            if all_album_reviews.exists():
+                average_rating = average_rating_review(content_type=ContentType.objects.get_for_model(Album), object_id=album.id)
+                albums_with_reviews.append((album, all_album_reviews, average_rating))
+            else:
+                albums_no_reviews.append(album)
+                
+        all_eps = EP.objects.all()
+        for ep in all_eps:
+            all_ep_reviews = MusicReview.objects.filter(content_type=ContentType.objects.get_for_model(EP), object_id=ep.id)
+            if all_ep_reviews.exists():
+                average_rating = average_rating_review(content_type=ContentType.objects.get_for_model(EP), object_id=ep.id)
+                albums_with_reviews.append((ep, all_ep_reviews, average_rating))
+            else:
+                albums_no_reviews.append(ep)
+                
+        all_singles = Single.objects.all()
+        for single in all_singles:
+            all_single_reviews = MusicReview.objects.filter(content_type=ContentType.objects.get_for_model(Single), object_id=single.id)
+            if all_single_reviews.exists():
+                average_rating = average_rating_review(content_type=ContentType.objects.get_for_model(Single), object_id=single.id)
+                albums_with_reviews.append((single, all_single_reviews, average_rating))
+            else:
+                albums_no_reviews.append(single)   
+    except Exception as e:
+        pass
     return render(request, 'review_site/music.html', {'albums_with_reviews': albums_with_reviews, 'albums_no_reviews': albums_no_reviews})
 
   
