@@ -119,6 +119,9 @@ def post_review(request):
                     content_obj.save()
                 else:
                     content_obj = Single.objects.get_or_create(artist=artist_obj, name=music_title, release_date=release_date)[0]
+                    if(album_art != ""): 
+                        content_obj.album_art = album_art    
+                    content_obj.save()
             except Exception as e:
                 print("Error occurred " + e)
                 return redirect('review_site:explore')
@@ -132,7 +135,7 @@ def post_review(request):
             posted_review.content_type = content_type_obj
             posted_review.object_id = object_id
             posted_review.save() 
-            return redirect('review_site:explore')
+            return redirect('review_site:music')
     else:
         form = ReviewCreationForm()
         context_dict['form'] = form
@@ -171,6 +174,14 @@ def music(request):
         else:
             albums_no_reviews.append(ep)
             
+    all_singles = Single.objects.all()
+    for single in all_singles:
+        all_single_reviews = MusicReview.objects.filter(content_type=ContentType.objects.get_for_model(Single), object_id=single.id)
+        if all_single_reviews.exists():
+            average_rating = average_rating_review(content_type=ContentType.objects.get_for_model(Single), object_id=single.id)
+            albums_with_reviews.append((single, all_single_reviews, average_rating))
+        else:
+            albums_no_reviews.append(single)   
     return render(request, 'review_site/music.html', {'albums_with_reviews': albums_with_reviews, 'albums_no_reviews': albums_no_reviews})
 
   
