@@ -1,9 +1,6 @@
-from django.contrib import admin
-from django.urls import path, include
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from review_site import views as app_views
 from . import views
 
 app_name = 'review_site'

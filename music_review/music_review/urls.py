@@ -14,6 +14,8 @@ urlpatterns = [
     path('accounts/register/',views.register, name='register'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+
+
 """
 Info on "django.contrib.auth.urls":
 This URL list includes:

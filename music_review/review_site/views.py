@@ -1,17 +1,11 @@
 from django.urls import reverse
-from review_site.models import Album
 from django.shortcuts import render, redirect
 from review_site.models import *
 from django.http import JsonResponse
-from django.contrib.auth import login
-from .models import MusicReview
-from review_site.forms import CommentCreationForm, ReviewCreationForm, UserCreationForm
+from review_site.forms import CommentCreationForm, ReviewCreationForm
 from .models import MusicReview, Album, Comment, Song, Single, Artist, EP
-from django.shortcuts import render
-from .models import Song, Single, Album, MusicReview
-from django.shortcuts import render, get_object_or_404, redirect
-from django.conf import settings
-import json
+from django.template.loader import render_to_string
+
 
 def index(request):
     """Display the homepage with the latest reviews."""
@@ -21,26 +15,47 @@ def index(request):
 
     return render(request, 'review_site/index.html', {'review_one': review_one,'review_two': review_two,'review_three':review_three})
 
+
 def explore(request):
     """Display a page to explore all reviews."""
-    review_list = MusicReview.objects.all()
-    return render(request, 'review_site/explore.html', {'reviews': review_list})
+    # Get the rating from request parameters
+    min_rating = request.GET.get('rating')
+    album_name = request.GET.get('album_name', '')  # Default to empty string if not provided
+    artist_name = request.GET.get('artist_name', '') # Default to empty string if not provided
+    reviews = MusicReview.objects.all()
 
-def filter(request):
-    genre = request.Get.get('Genre')
-    release_date = request.Get.get('Release date')
-    artist_popularity =request.Get.get('Artist Popularity')
-    rating = request.Get.get('Rating')
-    album = Album.objects.all()
-    if genre:
-        album = album.filter(genre = genre)
-    if release_date:
-        album = album.filter(release_date= release_date)
-    if artist_popularity:
-        album = album.filter(artist_popularity = artist_popularity)
-    if rating:
-        album = album.filter(rating = rating)
-    return JsonResponse({'Albums':list(album.values())})
+    # Filter by rating if applicable
+    if min_rating:
+        reviews = reviews.filter(rating__gte=int(min_rating))  # gte stands for 'greater than or equal to'
+        
+    # Get ContentType for Album model
+    album_content_type = ContentType.objects.get_for_model(Album)
+
+    # Initialize an empty Q object for complex querying
+    from django.db.models import Q
+    album_query = Q()
+
+    if album_name:
+        # Add album name condition to the album query
+        album_query |= Q(name__icontains=album_name)
+
+    if artist_name:
+        # Add artist name condition to the album query
+        album_query |= Q(artist__name__icontains=artist_name)
+
+    if album_query:
+        # Get IDs of Album instances that match the album and/or artist name criteria
+        album_ids = Album.objects.filter(album_query).values_list('id', flat=True)
+        # Filter MusicReview objects that are related to these Album instances
+        reviews = reviews.filter(content_type=album_content_type, object_id__in=album_ids)
+        
+    # Use this to check if it's an ajax request
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        html = render_to_string('review_site/_explore_albums.html', {'reviews': reviews}, request=request)
+        return JsonResponse({'html': html})
+
+    return render(request, 'review_site/explore.html', {'reviews': reviews, 'ratings': range(1, 6),})
+
 
 def forum(request, review_id):
     try:
@@ -173,14 +188,3 @@ def search(request):
         return render(request, 'resultpage.html', context)
     else:
         return render(request, 'homepage.html')
-    
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)    
-            return redirect('review_site:explore')
-    else:
-        form = UserCreationForm()
-    return render(request, 'registration/register.html', {'form': form})

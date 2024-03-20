@@ -9,42 +9,73 @@
 {% endblock %}
 
 
-{% block body %}
-  <div class = "main">
-    <div class = "filter">
-      <div>
-        <p>Filter</p>
-      </div>
-      <div>
-        <p>Genre</p>
-        <button onclick="myFunction()" class="genre">All</button>
-        <p>Release Date</p>
-        <button onclick="myFunction()" class="genre">All</button>
-        <p>Artist Popularity</p>
-        <button onclick="myFunction()" class="genre">All</button>
-        <p>Rating</p>
-        <button onclick="myFunction()" class="genre">All</button>
-        <p></p>
-        <button type="applyFilter">Apply filters</button>
-      </div>
-    </div>
+<!-- Include jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <div class = "albums">
-      <div class = "topRow">
-        {% if reviews %}
-          {% for review in reviews %}<div class = "albumOne">
-            <div class = "albumOneImage">
-              <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}" id="cover_art"/>
-            </div>
-            <div class = "albumOneInfo clickable" data-url="{% url 'review_site:forum' review_id=review.id %}">
-              <p>{{ review.music_item.artist }}</p>
-              <p>{{ review.music_item.name }}</p>
-              <p>{{ review.rating }}</p>
-            </div>
-          </div>
-          {% endfor %}
-        {% endif %}
-      </div>
-    </div>
-  </div>
+
+
+
+{% block body %}
+
+<!-- filters -->
+<div id="ratingFilter">
+  <select id="ratingSelect">
+    <option value="">Select a rating</option>
+    {% for rating in ratings %}
+    <option value="{{ rating }}">At least {{ rating }} stars</option>
+    {% endfor %}
+  </select>
+</div>
+
+<div id="albumNameFilter">
+  <input type="text" id="albumNameInput" placeholder="Search by album...">
+</div>
+
+<div id="artistNameFilter">
+  <input type="text" id="artistNameInput" placeholder="Search by artist...">
+</div>
+
+
+
+  
+
+<!--  The section below is what ajax refreshes so it need to be in a separate template -->
+<div class="albums">
+  {% include 'review_site/_explore_albums.html' %}
+</div>
+
+   
+<!-- script for ajax filter -->
+<script>
+  $(document).ready(function(){
+    // Function to handle filtering
+    function filterReviews() {
+      console.log("change detected!");
+        // Get the current values of the inputs
+        var selectedRating = $('#ratingSelect').val();
+        var albumName = $('#albumNameInput').val();  
+        var artistName = $('#artistNameInput').val();
+
+        $.ajax({
+            url: '{% url "review_site:explore" %}',
+            data: {
+                // Send the ratings and names as part of the request
+                'rating': selectedRating,
+                'album_name': albumName,
+                'artist_name': artistName 
+            },
+            success: function(response) {
+                $('.albums').html(response.html);  // Update the albums container
+            }
+        });
+    }
+
+    // Bind the filterReviews function to changes in both the rating select and the album name input
+    $('#ratingSelect').change(filterReviews);
+    $('#albumNameInput').on('input', filterReviews);  // Trigger filtering as the user types
+    $('#artistNameInput').on('input', filterReviews);
+});
+</script>
 {% endblock %}
+
+
