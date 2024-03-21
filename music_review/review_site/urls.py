@@ -15,8 +15,7 @@ urlpatterns = [
     path("explore/", views.explore, name='explore'),
     path("post_review/", views.post_review, name="post_review"),
     path('forum/<int:review_id>/', views.forum, name='forum'),
-    path('music/', views.music, name="music"),
+    path('content_page/<str:content_type>/<int:content_id>/', views.content_page, name="content_page"),
 ]
-
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

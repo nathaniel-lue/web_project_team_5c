@@ -280,7 +280,8 @@ album_images = {'Is This It': 'isthisit.png',
                 }
 
 def add_album(artist, name, release_date):
-    a = Album.objects.get_or_create(artist=artist, name=name, release_date=release_date)[0]
+    content_type_obj = ContentType.objects.get_for_model(Album)
+    a = Album.objects.get_or_create(artist=artist, name=name, release_date=release_date, content_type=content_type_obj)[0]
     a.artist = artist
     a.name = name
     if name in album_images:
@@ -310,7 +311,8 @@ def add_gig(artist, venue, date):
     return g
 
 def add_single(artist, name, release_date):
-    s = Single.objects.get_or_create(artist=artist, name=name, release_date=release_date)[0]
+    content_type_obj = ContentType.objects.get_for_model(Single)
+    s = Single.objects.get_or_create(artist=artist, name=name, release_date=release_date, content_type=content_type_obj)[0]
     s.artist = artist
     s.name = name
     s.release_date = release_date
@@ -318,7 +320,8 @@ def add_single(artist, name, release_date):
     return s
 
 def add_ep(artist, name, release_date):
-    a = EP.objects.get_or_create(artist=artist, name=name, release_date=release_date)[0]
+    content_type_obj = ContentType.objects.get_for_model(EP)
+    a = EP.objects.get_or_create(artist=artist, name=name, release_date=release_date, content_type=content_type_obj)[0]
     a.artist = artist
     a.name = name
     a.release_date = release_date

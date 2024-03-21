@@ -60,6 +60,7 @@ class CollectionEntity(models.Model, RatingMixin):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     release_date = models.DateField(null=True, blank=True)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, default=None)
     album_art = models.ImageField(upload_to='album_art/', null=True, blank=True, default='album_art/default-cover-art.png')
     
     def __str__(self):
@@ -89,7 +90,7 @@ class MusicEntity(models.Model, RatingMixin):
         abstract = True
         
 # stand alone single
-class Single(MusicEntity):
+class Single(CollectionEntity):
     pass
 
 # song which is part of an album
