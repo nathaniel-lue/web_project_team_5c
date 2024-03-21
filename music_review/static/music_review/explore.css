@@ -12,6 +12,8 @@
   position: sticky; 
   top: 20px;
   height:100%;
+  border-radius: 5px;
+  border: 1% ;
   background-color: #89A4B7;
   display:flex;
   flex-direction: column;
@@ -32,7 +34,6 @@
 }
 
 .albumsDiv {
-
   width:80%;
   height:auto;
   max-height: 80%;
@@ -45,6 +46,8 @@
 }
 
 .albums {
+  border-radius: 5px;
+  border: 1% ;
   background-color: #89A4B7;
   display:flex;
   flex-direction: row;
@@ -55,6 +58,8 @@
 
 
 .album {
+  border-radius: 5px;
+  border: 1% ;
   display: block;
   max-width: 23%;
   min-width: 23%;

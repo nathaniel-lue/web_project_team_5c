@@ -1,6 +1,6 @@
 from review_site.forms import UserCreationForm
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 
 
 def register(request):
@@ -13,3 +13,6 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
+
+def logged_out(request):
+    return render(request, 'registration/log_out.html')
