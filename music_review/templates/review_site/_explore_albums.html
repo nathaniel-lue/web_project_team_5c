@@ -3,7 +3,7 @@
     {% if all_content %}
       {% for content in all_content %}
       {{ content.content_type|slice:"14:" }}
-      <div class = "album clickable" data-url="{% url 'review_site:content_page' content.content_type|slice:'14:' content.id %}">
+      <div class = "album clickable" data-url="{% url 'review_site:content_page' content.content_type content.id %}">
         <div class = "albumImage">
           <img src="{{ MEDIA_URL }}{{ content.album_art }}" id="cover_art"/>
         </div>

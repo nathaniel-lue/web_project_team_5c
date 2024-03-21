@@ -195,9 +195,26 @@ def music(request):
     return render(request, 'review_site/music.html', {'albums_with_reviews': albums_with_reviews, 'albums_no_reviews': albums_no_reviews})
 
 def content_page(request, content_type, content_id):
-    reviews = MusicReview.objects.filter(content_type=content_type, object_id=content_id)
-       
-    return render(request, 'review_site/content_page.html', {'reviews': reviews})
+    app_name, content_type_split = content_type.split('|')
+    if "album" in str(content_type_split):
+        content_type_obj = ContentType.objects.get_for_model(Album)
+        content_obj = Album.objects.filter(id=content_id)
+        average_rating = average_rating_review(content_type=ContentType.objects.get_for_model(Album), object_id=content_id)
+    elif "ep" in str(content_type_split):
+        content_type_obj = ContentType.objects.get_for_model(EP)
+        content_obj = EP.objects.filter(id=content_id)
+        average_rating = average_rating_review(content_type=ContentType.objects.get_for_model(EP), object_id=content_id)
+    else:
+        content_type_obj = ContentType.objects.get_for_model(Single)
+        content_obj = Single.objects.filter(id=content_id)
+        average_rating = average_rating_review(content_type=ContentType.objects.get_for_model(Single), object_id=content_id)
+        
+    
+    
+    reviews = MusicReview.objects.filter(content_type=content_type_obj, object_id=content_id)
+
+    # MusicReview.objects.filter(content_type=content_type, content_id=content_id)
+    return render(request, 'review_site/content_page.html', {'reviews': reviews, 'content': content_obj, 'average_rating': average_rating})
 
 def search(request):
     query = request.GET.get('query', '')
