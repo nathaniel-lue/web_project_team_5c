@@ -8,6 +8,9 @@ from django.template.loader import render_to_string
 from review_site.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
+from django.contrib import messages
+from django.shortcuts import get_object_or_404
+from django.db.models import ContentType
 
 
 def index(request):
@@ -94,11 +97,30 @@ def post_review(request):
             content = form.cleaned_data['content']
             rating = form.cleaned_data['rating']
             release_date = form.cleaned_data['release_date']
+            review = form.save(commit=False)
+            review.user = request.user
+            artist_name = form.cleaned_data['artist']
+            artist, created = Artist.objects.get_or_create(name=artist_name)
             
             if release_date == "" or release_date == None:
                 release_date = "2000-01-01" # Give a default value for the release date if not given
                 
-                
+            if form.cleaned_data['review_type'] == 'Album':
+                album, created = Album.objects.get_or_create(
+                    artist=artist,
+                    name=form.cleaned_data['content_title'],
+                    defaults={'release_date': form.cleaned_data['release_date']}
+                )
+                if 'album_upload' in form.cleaned_data:
+                    album.album_art = form.cleaned_data['album_upload']
+                    album.save()
+                review.content_object = album
+            
+            review.save()
+            messages.success(request, 'Your review has been posted!')
+            return redirect('review_site:music')
+        else:
+            messages.error(request, 'Please correct the errors below.')
                 
             album_art = ""
             if ('album_upload' in request.FILES):

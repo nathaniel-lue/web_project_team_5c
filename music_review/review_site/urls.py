@@ -12,6 +12,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),  
     path('accounts/', include('django.contrib.auth.urls')),  
     path('accounts/register/', review_views.register, name='register'),  
+    path('reviews/', include('review_site.urls')),
     path("explore/", views.explore, name='explore'),
     path("post_review/", views.post_review, name="post_review"),
     path('forum/<int:review_id>/', views.forum, name='forum'),
