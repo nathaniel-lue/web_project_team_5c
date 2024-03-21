@@ -1,0 +1,41 @@
+{% extends 'navbar_base.html' %}
+{% load static %}
+
+{% block styles_import %}  
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'music_review/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'music_review/explore.css' %}" />
+{% endblock %}
+
+
+{% block body %}
+{% if content %}
+  {% for content_item in content %}
+  <div class = "albumBox">
+    <div class = "albumOneImage">
+      <img src="{{ MEDIA_URL }}{{ content_item.album_art }}" id="cover_art" style="max-height: 200px; max-width: 200px"/>
+    </div>
+
+    <div class = "albumBlockInfo">
+      <p>{{ content_item.artist }}- {{ content_item.name }}</p>
+      
+      {% if reviews %}
+      <p>Average Review- {{ average_rating }}</p>
+      <p>Reviews:</p>
+      {% for review in reviews %}
+        <ul>
+            <li><a href="{% url 'review_site:forum' review_id=review.id %}">{{ review.title }}  ({{ review.rating }})- {{ review.user.username }} </a></li>
+        </ul>
+      {% endfor %}
+    {% else %}
+      <p>No reviews yet!</p>
+    {% endif %}
+    </div>
+  </div>
+
+{% endfor %}
+{% endif %}
+{% endblock %}
