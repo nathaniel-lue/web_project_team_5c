@@ -1,68 +1,72 @@
-
-
-.main { 
+.container{
   display:flex;
+  justify-content: space-between;
   flex-direction: row;
-  background-color: black;
-}
-
-.main .filter{
-  width:10%;
-  display:flex;
-  flex-direction: column;
-  background-color: #721414;
+  max-width: 90%;
+  width:100%;
+  max-height: 80%;
   margin:1%;
 }
-.main .filter > div{
+
+.filter{
+  position: sticky; 
+  top: 20px;
+  height:100%;
+  background-color: #89A4B7;
+  display:flex;
+  flex-direction: column;
+  width:20%;
+  margin-right: 2%;
+  margin-left:auto;
+}
+.filter > div{
   margin:3%;
 }
 
-.main .albums{
-    margin:1%;
-    width : 90%;
-    height: 50%;
-    background-color: #721414;
-    display: flex;
-    flex-direction: column;
-    flex-wrap:  nowrap;
-    justify-content: space-evenly;
+.filter > div > select{
+  width:100%;
 }
 
-.main .albums .albumOne{
-    background-color: aliceblue;
-    display:flex;
-    flex-direction: column;
-    margin: 1%
+.filter > div > input{
+  width:100%;
 }
 
-.albumOne:hover{
-  background-color: lightgrey;
-  cursor: pointer;
-}
+.albumsDiv {
 
-.main .albums .albumOne .albumOneImage{
-  margin:2%;
-}
-
-.main .albums .albumOne .albumOneInfo{
-  margin:2%;
-}
-
-.main .albums .topRow{
+  width:80%;
+  height:auto;
+  max-height: 80%;
+  margin-left: 1%;
+  margin-right: auto;
   display:flex;
-  flex-direction:row;
-} 
+  flex-direction: row;
+  flex-wrap: nowrap;
+  
+}
 
-.main .albums .bottomRow{
+.albums {
+  background-color: #89A4B7;
   display:flex;
-  flex-direction:row;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  height:auto;
 }
 
-#cover_art {
-  height: auto; 
-  width: auto; 
-  width: 450px; 
-  height: 450px;
-  margin: 0px
+
+.album {
+  display: block;
+  max-width: 23%;
+  min-width: 23%;
+  margin:1%;
+  
 }
 
+.album:hover{
+  background-color: #677d8d;
+}
+
+.albumInfo {
+  margin:1%;
+  
+}

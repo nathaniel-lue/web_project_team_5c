@@ -158,11 +158,16 @@ def populate():
     
     users = [{'username': 'craig.sinc', 'password': '12345', 'email': '123@gmail.com', 'bio': 'Hi!'},
              {'username': 'Jim Bob', 'password': '2468', 'email': '12345@gmail.com', 'bio': 'Music lover.'},
-             {'username': 'Dave Smith', 'password': '789', 'email': '123456@gmail.com', 'bio': 'I like music!'}]
+             {'username': 'Dave Smith', 'password': '789', 'email': '123456@gmail.com', 'bio': 'I like music!'},
+             {'username': 'hal 9000', 'password': '294', 'email': '123456@gmail.com', 'bio': 'I like cars!'},
+             {'username': 'phil elvrum', 'password': '263', 'email': '123456@gmail.com', 'bio': 'Stuff'},]
 
     music_reviews = [{'user': 'craig.sinc', 'rating': 4.5, 'title': 'My Review of Is This It', 'content': 'I loved this album very much!', 'type': 'album', 'name': 'Is This It'},
     {'user': 'Jim Bob', 'title': 'My Review of Surrender', 'rating': 4.3, 'content': 'I loved this album very much!', 'type': 'album', 'name': 'Surrender'},
-    {'user': 'Dave Smith', 'title': 'My Review of Whatever, the EP', 'rating': 4.2, 'content': 'This is my fave Oasis EP!', 'type': 'ep', 'name': 'Whatever'}
+    {'user': 'Dave Smith', 'title': 'My Review of Whatever, the EP', 'rating': 4.2, 'content': 'This is my fave Oasis EP!', 'type': 'ep', 'name': 'Whatever'},
+    {'user': 'hal 9000', 'title': 'My Review of mitsubishi suicide', 'rating': 5, 'content': 'I loved this album very much!', 'type': 'album', 'name': 'Mitsubishi Suicide'},
+    {'user': 'Jim Bob', 'title': 'My Review of the glow pt 2', 'rating': 3, 'content': 'I loved this album very much!', 'type': 'album', 'name': 'The Glow, Pt. 2'},
+
     ]
     
     music_ratings = [{'user': 'Jim Bob', 'rating': 4.2, 'type': 'song', 'name': 'Love Her Madly'},

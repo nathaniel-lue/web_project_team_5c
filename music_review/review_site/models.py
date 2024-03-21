@@ -59,7 +59,7 @@ Albums, songs, EPs, Gigs
 class CollectionEntity(models.Model, RatingMixin):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    release_date = models.DateField()
+    release_date = models.DateField(null=True, blank=True)
     album_art = models.ImageField(upload_to='album_art/', null=True, blank=True, default='album_art/default-cover-art.png')
     
     def __str__(self):
@@ -80,6 +80,7 @@ class MusicEntity(models.Model, RatingMixin):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     release_date = models.DateField(null=True, blank=True)
+    album_art = models.ImageField(upload_to='album_art/', null=True, blank=True, default='album_art/default-cover-art.png')
     
     def __str__(self):
         return f"{self.artist}: {self.name}"
@@ -124,6 +125,14 @@ class MusicReview(models.Model):
 
     def __str__(self):
         return f"{self.title} by {self.user.username}"
+
+def average_rating_review(content_type, object_id):
+    reviews = MusicReview.objects.filter(content_type=content_type, object_id=object_id)
+    average_rating = reviews.aggregate(Avg('rating'))['rating__avg']
+    
+    if average_rating is None:
+        return None
+    return round(average_rating, 2)
     
 
 class Comment(models.Model):
