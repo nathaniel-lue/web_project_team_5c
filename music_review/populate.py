@@ -142,6 +142,7 @@ def populate():
                {'artist': 'The Vaccines', 'name': 'Norgaard', 'release_date': '2011-04-14'},
                {'artist': 'Alice In Chains', 'name': 'Would?', 'release_date': '1992-10-29'},
                {'artist': 'Big Thief', 'name': 'Vampire Empire', 'release_date': '2023-06-19'},
+               {'artist': 'The Smiths', 'name': 'Back to the Old House', 'release_date': '1985-02-02'}
                ]
 
     eps = [{'artist': 'Oasis', 'name': 'Whatever', 'release_date': '1994-12-18'},
@@ -167,7 +168,7 @@ def populate():
     {'user': 'Dave Smith', 'title': 'My Review of Whatever, the EP', 'rating': 4.2, 'content': 'This is my fave Oasis EP!', 'type': 'ep', 'name': 'Whatever'},
     {'user': 'hal 9000', 'title': 'My Review of mitsubishi suicide', 'rating': 5, 'content': 'I loved this album very much!', 'type': 'album', 'name': 'Mitsubishi Suicide'},
     {'user': 'Jim Bob', 'title': 'My Review of the glow pt 2', 'rating': 3, 'content': 'I loved this album very much!', 'type': 'album', 'name': 'The Glow, Pt. 2'},
-
+    {'user': 'Jim Bob', 'title': 'My Review of Back to the Old House', 'rating': 3.5, 'content': 'I loved this single very much!', 'type': 'single', 'name': 'Back to the Old House'},
     ]
     
     music_ratings = [{'user': 'Jim Bob', 'rating': 4.2, 'type': 'song', 'name': 'Love Her Madly'},
@@ -305,7 +306,7 @@ def add_review(user, title, content, content_type, name, rating):
     elif(content_type=='ep'):
         music_type = EP.objects.get(name=name)
     else:
-        music_type = Song.objects.get(name=name)
+        music_type = Single.objects.get(name=name)
     object_id = music_type.id
         
     content_type_obj = ContentType.objects.get_for_model(music_type.__class__)
