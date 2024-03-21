@@ -61,3 +61,12 @@
   margin:1%;
   
 }
+
+.album:hover{
+  background-color: #677d8d;
+}
+
+.albumInfo {
+  margin:1%;
+  
+}
