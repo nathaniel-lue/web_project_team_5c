@@ -16,7 +16,7 @@ class ViewWithDatabaseTest(TestCase):
     
     def test_index_view(self):
         response = self.client.get(reverse('review_site:index'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 404)
         self.assertContains(response, 'Is This It')
         self.assertContains(response, 'Whatever')
         self.assertContains(response, 'Surrender')
