@@ -1,10 +1,10 @@
-<div class = "topRow">
+<div class = "albums">
     {% if reviews %}
-      {% for review in reviews %}<div class = "albumOne">
-        <div class = "albumOneImage">
+      {% for review in reviews %}<div class = "album">
+        <div class = "albumImage">
           <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}" id="cover_art"/>
         </div>
-        <div class = "albumOneInfo clickable" data-url="{% url 'review_site:forum' review_id=review.id %}">
+        <div class = "albumInfo clickable" data-url="{% url 'review_site:forum' review_id=review.id %}">
           <p>{{ review.music_item.artist }}</p>
           <p>{{ review.music_item.name }}</p>
           <p>{{ review.rating }}</p>

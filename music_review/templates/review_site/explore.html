@@ -3,7 +3,11 @@
 {% load static %}
 
 
-{% block styles_import %}
+{% block styles_import %}  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="{% static 'music_review/style.css' %}" />
   <link rel="stylesheet" type="text/css" href="{% static 'music_review/explore.css' %}" />
 {% endblock %}
@@ -16,31 +20,36 @@
 
 
 {% block body %}
-
+<div class = "container">
 <!-- filters -->
-<div id="ratingFilter">
+<div class = "filter">
+  <div>
+    <h3>Filter</h3>
+  </div>
+
+  <div id="ratingFilter">
   <select id="ratingSelect">
     <option value="">Select a rating</option>
     {% for rating in ratings %}
     <option value="{{ rating }}">At least {{ rating }} stars</option>
     {% endfor %}
   </select>
-</div>
+  </div>
 
-<div id="albumNameFilter">
+  <div id="albumNameFilter">
   <input type="text" id="albumNameInput" placeholder="Search by album...">
-</div>
+  </div>
 
-<div id="artistNameFilter">
+  <div id="artistNameFilter">
   <input type="text" id="artistNameInput" placeholder="Search by artist...">
+  </div>
+
 </div>
-
-
 
   
 
 <!--  The section below is what ajax refreshes so it need to be in a separate template -->
-<div class="albums">
+<div class="albumsDiv">
   {% include 'review_site/_explore_albums.html' %}
 </div>
 
@@ -65,7 +74,7 @@
                 'artist_name': artistName 
             },
             success: function(response) {
-                $('.albums').html(response.html);  // Update the albums container
+                $('.albumsDiv').html(response.html);  // Update the albums container
             }
         });
     }
@@ -76,6 +85,7 @@
     $('#artistNameInput').on('input', filterReviews);
 });
 </script>
+</div>
 {% endblock %}
 
 
