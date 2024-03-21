@@ -1,0 +1,17 @@
+{% extends 'navbar_base.html' %}
+{% load static %}
+
+{% block styles_import %}  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{% static 'music_review/style.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'music_review/forum.css' %}" />
+{% endblock %}
+
+
+{% block body %}
+{% if reviews %}
+{% for review in reviews %}
+  <p>{{ review.title }}</p>
+{% endfor %}
+{% endif %}
+{% endblock %}

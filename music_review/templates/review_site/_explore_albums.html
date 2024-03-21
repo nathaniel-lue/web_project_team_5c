@@ -1,14 +1,15 @@
 <div class = "albums">
-    {% if reviews %}
-      {% for review in reviews %}
-      <div class = "album clickable" data-url="{% url 'review_site:forum' review_id=review.id %}">
+
+    {% if all_content %}
+      {% for content in all_content %}
+      {{ content.content_type|slice:"14:" }}
+      <div class = "album clickable" data-url="{% url 'review_site:content_page' content.content_type|slice:'14:' content.id %}">
         <div class = "albumImage">
-          <img src="{{ MEDIA_URL }}{{ review.music_item.album_art }}" id="cover_art"/>
+          <img src="{{ MEDIA_URL }}{{ content.album_art }}" id="cover_art"/>
         </div>
         <div class = "albumInfo" >
-          <p>{{ review.music_item.artist }}</p>
-          <p>{{ review.music_item.name }}</p>
-          <p>{{ review.rating }}</p>
+          <p>{{ content.artist }}</p>
+          <p>{{ content.name }}</p>
         </div>
       </div>
       {% endfor %}
