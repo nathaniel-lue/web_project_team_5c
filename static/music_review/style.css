@@ -1,3 +1,6 @@
+*{
+  border-radius:0.4rem!important; 
+}
 body {
     background-color:  #F3EED9;
 }
