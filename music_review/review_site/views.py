@@ -9,6 +9,8 @@ from django.template.loader import render_to_string
 from review_site.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
+from django.db.models import Q
+
 
 
 def index(request):
@@ -20,48 +22,58 @@ def index(request):
     return render(request, 'review_site/index.html', {'review_one': review_one,'review_two': review_two,'review_three':review_three})
 
 
-def explore(request):
-    """Display a page to explore all reviews."""
-    # Get the rating from request parameters
-    min_rating = request.GET.get('rating')
-    album_name = request.GET.get('album_name', '')  # Default to empty string if not provided
-    artist_name = request.GET.get('artist_name', '') # Default to empty string if not provided
-    
-    reviews = MusicReview.objects.all()
-    all_content = list(chain(Album.objects.all(), EP.objects.all(), Single.objects.all()))
 
+def filter_content_by_criteria(model, min_rating='', album_name='', artist_name=''):
+    """
+    Helper function for the explore view:
+    Filter a given content type (Album, EP, Single) by minimum rating, album name, and artist name.
 
-    # Filter by rating if applicable
-    if min_rating:
-        reviews = reviews.filter(rating__gte=int(min_rating))  # gte stands for 'greater than or equal to'
-        
-    # Get ContentType for Album model
-    album_content_type = ContentType.objects.get_for_model(Album)
+    Args:
+    - model: The model class to filter (e.g., Album, EP, Single).
+    - min_rating: The minimum average rating to filter by.
+    - album_name: The name of the album to filter by.
+    - artist_name: The artist's name to filter by.
 
-    # Initialize an empty Q object for complex querying
-    from django.db.models import Q
-    album_query = Q()
+    Returns:
+    - A queryset of the filtered model instances.
+    """
+    content_type = ContentType.objects.get_for_model(model)
+    objects = model.objects.all()
 
     if album_name:
-        # Add album name condition to the album query
-        album_query |= Q(name__icontains=album_name)
-
+        objects = objects.filter(name__icontains=album_name)
     if artist_name:
-        # Add artist name condition to the album query
-        album_query |= Q(artist__name__icontains=artist_name)
+        objects = objects.filter(artist__name__icontains=artist_name)
 
-    if album_query:
-        # Get IDs of Album instances that match the album and/or artist name criteria
-        album_ids = Album.objects.filter(album_query).values_list('id', flat=True)
-        # Filter MusicReview objects that are related to these Album instances
-        reviews = reviews.filter(content_type=album_content_type, object_id__in=album_ids)
-        
-    # Use this to check if it's an ajax request
+    if min_rating:
+        min_rating = float(min_rating)
+
+        # Find IDs of objects that meet the minimum rating criteria
+        filtered_ids = MusicReview.objects.filter(
+            content_type=content_type,
+            object_id__in=objects.values_list('id', flat=True)
+        ).values('object_id').annotate(avg_rating=Avg('rating')).filter(avg_rating__gte=min_rating).values_list('object_id', flat=True)
+
+        objects = objects.filter(id__in=filtered_ids)
+    return objects
+
+
+def explore(request):
+    min_rating = request.GET.get('rating', '')
+    album_name = request.GET.get('album_name', '')
+    artist_name = request.GET.get('artist_name', '')
+
+    filtered_albums = filter_content_by_criteria(Album, min_rating, album_name, artist_name)
+    filtered_eps = filter_content_by_criteria(EP, min_rating, album_name, artist_name)
+    filtered_singles = filter_content_by_criteria(Single, min_rating, album_name, artist_name)
+    all_content = list(chain(filtered_albums, filtered_eps, filtered_singles))
+
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        html = render_to_string('review_site/_explore_albums.html', {'reviews': reviews}, request=request)
+        html = render_to_string('review_site/_explore_albums.html', {'all_content': all_content}, request=request)
         return JsonResponse({'html': html})
 
-    return render(request, 'review_site/explore.html', {'all_content': all_content, 'reviews': reviews, 'ratings': range(1, 6),})
+    return render(request, 'review_site/explore.html', {'all_content': all_content, 'ratings': range(1, 6)})
+
 
 
 def forum(request, review_id):
