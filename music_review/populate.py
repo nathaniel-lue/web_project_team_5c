@@ -15,7 +15,15 @@ def populate():
               {'artist': 'Crater Creek', 'name': 'Crater Creek', 'release_date': '2022-10-22'},
               {'artist': 'The Microphones', 'name':'The Glow, Pt. 2', 'release_date': '2001-09-11'},
               {'artist': 'Slint', 'name':'Spiderland', 'release_date': '1991-03-15'},
-              {'artist': 'Slint', 'name':'Tweez', 'release_date': '1989-01-01'}]
+              {'artist': 'Slint', 'name':'Tweez', 'release_date': '1989-01-01'},
+              {'artist': 'The Microphones', 'name':'Tests', 'release_date': '1998-05-20'},
+              {'artist': 'The Microphones', 'name':'Window', 'release_date': '2000-02-8'},
+              {'artist': 'The Microphones', 'name':"Don't Wake Up", 'release_date': '1999-08-19'},
+              {'artist': 'The Microphones', 'name':'It Was Hot, We Stayed In The Water', 'release_date': '2000-09-26'},
+              {'artist': 'The Microphones', 'name':'Blood', 'release_date': '2001-09-21'},
+              {'artist': 'The Microphones', 'name':'Mount Eerie', 'release_date': '2003-01-21'},
+              {'artist': 'The Microphones', 'name':'Little Bird Flies into a Big Black Cloud', 'release_date': '2002-09-13'},
+              ]
 
     songs = {'Is This It': [
         {'name': 'Is This It', 'release_date': '2001-06-30'},
@@ -29,6 +37,27 @@ def populate():
         {'name': 'When It Started', 'release_date': '2001-06-30'},
         {'name': 'Trying Your Luck', 'release_date': '2001-06-30'},
         {'name': 'Take It or Leave It', 'release_date': '2001-06-30'}
+        ],
+        'Tests': [
+        {'name': 'song', 'release_date': '1998-05-20'},
+        ],
+        'Window': [
+        {'name': 'song', 'release_date': '2000-02-8'},
+        ],
+        "Don't Wake Up": [
+        {'name': 'song', 'release_date': '1999-08-19'},
+        ],
+        'It Was Hot, We Stayed In The Water': [
+        {'name': 'song', 'release_date': '2000-09-26'},
+        ],
+        'Blood': [
+        {'name': 'song', 'release_date': '2001-09-21'},
+        ],
+        'Mount Eerie': [
+        {'name': 'song', 'release_date': '2003-01-21'},
+        ],
+        'Little Bird Flies into a Big Black Cloud': [
+        {'name': 'song', 'release_date': '2002-09-13'},
         ],
         'L.A. Woman': [
             {'name': 'The Changeling', 'release_date': '1971-04-19'},
@@ -142,6 +171,7 @@ def populate():
                {'artist': 'The Vaccines', 'name': 'Norgaard', 'release_date': '2011-04-14'},
                {'artist': 'Alice In Chains', 'name': 'Would?', 'release_date': '1992-10-29'},
                {'artist': 'Big Thief', 'name': 'Vampire Empire', 'release_date': '2023-06-19'},
+               {'artist': 'The Smiths', 'name': 'Back to the Old House', 'release_date': '1985-02-02'}
                ]
 
     eps = [{'artist': 'Oasis', 'name': 'Whatever', 'release_date': '1994-12-18'},
@@ -167,6 +197,9 @@ def populate():
     {'user': 'Dave Smith', 'title': 'My Review of Whatever, the EP', 'rating': 4.2, 'content': 'This is my fave Oasis EP!', 'type': 'ep', 'name': 'Whatever'},
     {'user': 'hal 9000', 'title': 'My Review of mitsubishi suicide', 'rating': 5, 'content': 'I loved this album very much!', 'type': 'album', 'name': 'Mitsubishi Suicide'},
     {'user': 'Jim Bob', 'title': 'My Review of the glow pt 2', 'rating': 3, 'content': 'I loved this album very much!', 'type': 'album', 'name': 'The Glow, Pt. 2'},
+    {'user': 'Jim Bob', 'title': 'My Review of mount eerie', 'rating': 4, 'content': 'Solar SYstem', 'type': 'album', 'name': 'Mount Eerie'},
+    {'user': 'phil elvrum', 'title': 'My Review of blood', 'rating': 5, 'content': 'I made this', 'type': 'album', 'name': 'Blood'},
+
 
     ]
     
@@ -234,8 +267,17 @@ def add_user(username, password, email, bio):
     return u
 
 album_art_directory = 'static/images/'
-album_images = {'Is This It': 'isthisit.png', 'Whatever': 'Whatever.png', 'Surrender': 'hbhg.jpg',
-                'Mitsubishi Suicide':'mitsubishiSuicideMitsubishiSuicide.jpg'}
+album_images = {'Is This It': 'isthisit.png',
+                'Whatever': 'Whatever.png',
+                'Surrender': 'hbhg.jpg',
+                'Mitsubishi Suicide':'mitsubishiSuicideMitsubishiSuicide.jpg',
+                'Blood':'blood.jpg',
+                'It Was Hot, We Stayed In The Water':'itwashotwestayedinthewater.jpg',
+                'Little Bird Flies into a Big Black Cloud':'littlebird.jpg',
+                'Mount Eerie':'mounteerie.jpg',
+                'Window':'window.jpg',
+                'Tests':'tests.jpg'
+                }
 
 def add_album(artist, name, release_date):
     a = Album.objects.get_or_create(artist=artist, name=name, release_date=release_date)[0]
@@ -305,7 +347,7 @@ def add_review(user, title, content, content_type, name, rating):
     elif(content_type=='ep'):
         music_type = EP.objects.get(name=name)
     else:
-        music_type = Song.objects.get(name=name)
+        music_type = Single.objects.get(name=name)
     object_id = music_type.id
         
     content_type_obj = ContentType.objects.get_for_model(music_type.__class__)

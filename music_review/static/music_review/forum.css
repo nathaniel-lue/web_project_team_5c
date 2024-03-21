@@ -1,0 +1,50 @@
+.container{
+    align-items: left;
+}
+
+.middle{
+    background-color: #89A4B7;
+}
+
+.horizontal_container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.forum_titles{
+    margin: 1%;
+    color:black;
+}
+
+.forum_small_titles{
+    margin: 1%;
+
+    color:black;
+}
+
+.horizontal_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.forumInfoAndComments {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.forum_image {
+    height:auto;
+    width:auto;
+    max-height: 50%;
+    max-width: 100%;
+}
+
+.forum_info {
+    height:35%;
+    width:50%;   
+}
+
+.comments {
+    margin:0;
+}
