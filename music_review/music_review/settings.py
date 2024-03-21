@@ -116,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # additional auth stuff
-LOGIN_REDIRECT_URL = 'explore'
+LOGIN_REDIRECT_URL = 'review_site:explore'
 
 # The default user is the one defined in the model
 AUTH_USER_MODEL = 'review_site.CustomUser'
