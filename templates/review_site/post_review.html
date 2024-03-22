@@ -20,10 +20,84 @@
 
         {% if user.is_authenticated %}
         <div class = "post_review">
-        <form id="add_review" method="POST" action="" enctype="multipart/form-data">
+          <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-              {{ form.as_p }}
-            <input type="submit" name="submit" value="Post Review" />
+            
+            <div class="form-field">
+                <label for="{{ form.artist.id_for_label }}">Artist:</label>
+                {{ form.artist }}
+                {% if form.artist.errors %}
+                    <span class="error-message">{{ form.artist.errors.as_text }}</span>
+                {% endif %}
+                <span class="help-text">{{ form.artist.help_text }}</span>
+            </div>
+            
+            <div class="form-field">
+                <label for="{{ form.review_type.id_for_label }}">Review type:</label>
+                {{ form.review_type }}
+                {% if form.review_type.errors %}
+                    <span class="error-message">{{ form.review_type.errors.as_text }}</span>
+                {% endif %}
+            </div>
+            
+            <div class="form-field">
+                <label for="{{ form.title.id_for_label }}">Title:</label>
+                {{ form.title }}
+                {% if form.title.errors %}
+                    <span class="error-message">{{ form.title.errors.as_text }}</span>
+                {% endif %}
+                <span class="help-text">{{ form.title.help_text }}</span>
+            </div>
+            
+            <div class="form-field">
+                <label for="{{ form.content_title.id_for_label }}">Content title:</label>
+                {{ form.content_title }}
+                {% if form.content_title.errors %}
+                    <span class="error-message">{{ form.content_title.errors.as_text }}</span>
+                {% endif %}
+                <span class="help-text">{{ form.content_title.help_text }}</span>
+            </div>
+            
+            <div class="form-field">
+                <label for="{{ form.content.id_for_label }}">Content:</label>
+                {{ form.content }}
+                {% if form.content.errors %}
+                    <span class="error-message">{{ form.content.errors.as_text }}</span>
+                {% endif %}
+                <span class="help-text">{{ form.content.help_text }}</span>
+            </div>
+            
+            <div class="form-field">
+                <label for="{{ form.rating.id_for_label }}">Rating:</label>
+                {{ form.rating }}
+                {% if form.rating.errors %}
+                    <span class="error-message">{{ form.rating.errors.as_text }}</span>
+                {% endif %}
+                <span class="help-text">{{ form.rating.help_text }}</span>
+            </div>
+            
+            <div class="form-field">
+                <label for="{{ form.release_date.id_for_label }}">Release date:</label>
+                {{ form.release_date }}
+                {% if form.release_date.errors %}
+                    <span class="error-message">{{ form.release_date.errors.as_text }}</span>
+                {% endif %}
+                <span class="help-text">{{ form.release_date.help_text }}</span>
+            </div>
+            
+            <div class="form-field">
+                <label for="{{ form.album_upload.id_for_label }}">Album upload:</label>
+                {{ form.album_upload }}
+                {% if form.album_upload.errors %}
+                    <span class="error-message">{{ form.album_upload.errors.as_text }}</span>
+                {% endif %}
+                <span class="help-text">{{ form.album_upload.help_text }}</span>
+            </div>
+            
+            <div class="form-field">
+                <button type="submit" class="submit-button">Post Review</button>
+            </div>
+            
         </form>
         </div>
         {% else %}
