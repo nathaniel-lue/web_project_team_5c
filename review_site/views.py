@@ -159,11 +159,11 @@ def post_review(request, content_type=None, content_id=-1):
             posted_review.save() 
             return redirect('review_site:explore')
     else:
-        if "Album" in content_type:
+        if "album" in content_type:
             review_type = "Album"
             content_type_obj = ContentType.objects.get_for_model(Album)
             content_obj = Album.objects.filter(id=content_id)[0]
-        elif "EP" in content_type:
+        elif "ep" in content_type:
             review_type = "EP"
             content_type_obj = ContentType.objects.get_for_model(EP)
             content_obj = EP.objects.filter(id=content_id)[0]
