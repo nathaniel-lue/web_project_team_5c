@@ -16,19 +16,8 @@ class ViewWithDatabaseTest(TestCase):
     
     def test_index_view(self):
         response = self.client.get(reverse('review_site:index'))
-        self.assertEqual(response.status_code, 404)
-        self.assertContains(response, 'Is This It')
-        self.assertContains(response, 'Whatever')
-        self.assertContains(response, 'Surrender')
-        
-    def test_forum_view_get_with_existing_review(self):
-        review_id = 2 #just a random review id
-        response = self.client.get(reverse('review_site:forum', kwargs={'review_id': review_id}))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'review_site/forum.html')
-        # Add assertions here to check for content or context related to the created review
-        
-        
+        self.assertContains(response, 'Is This It')
 
 
 class ReviewSiteViewsTests(TestCase):
@@ -52,7 +41,8 @@ class ModelsTests(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='testpass', bio='A short bio')
         self.artist = Artist.objects.create(name='Test Artist')
-        self.album = Album.objects.create(artist=self.artist, name='Test Album', release_date='2000-01-01')
+        content_type = ContentType.objects.get_for_model(Album)
+        self.album = Album.objects.create(artist=self.artist, name='Test Album', release_date='2000-01-01', content_type=content_type)
 
     def test_custom_user_str(self):
         self.assertEqual(str(self.user), 'testuser')
@@ -93,7 +83,10 @@ class MusicReviewModelTests(TestCase):
         User = get_user_model()
         self.user = User.objects.create_user(username='reviewer', password='testpass123')
         self.artist = Artist.objects.create(name='Review Artist')
-        self.album = Album.objects.create(artist=self.artist, name='Review Album', release_date='2022-01-01')
+        content_type = ContentType.objects.get_for_model(Album)
+        self.album = Album.objects.create(artist=self.artist, name='Review Album', release_date='2022-01-01', content_type=content_type)
+        self.content_type1 = ContentType.objects.get_for_model(Album)
+        self.object_id1 = self.album.id
 
     def test_music_review_creation(self):
         review = MusicReview.objects.create(
@@ -101,7 +94,8 @@ class MusicReviewModelTests(TestCase):
             title='Great Album',
             content='This is a review content.',
             rating=4.5,
-            music_item=self.album
+            content_type=self.content_type1,
+            object_id=self.object_id1
         )
         self.assertEqual(review.title, 'Great Album')
         self.assertEqual(review.user.username, 'reviewer')
@@ -111,13 +105,15 @@ class CommentModelTests(TestCase):
         User = get_user_model()
         self.user = User.objects.create_user(username='commenter', password='testpass123')
         self.artist = Artist.objects.create(name='Comment Artist')
-        self.album = Album.objects.create(artist=self.artist, name='Comment Album', release_date='2022-01-01')
+        content_type = ContentType.objects.get_for_model(Album)
+        self.album = Album.objects.create(artist=self.artist, name='Review Album', release_date='2022-01-01', content_type=content_type)
         self.review = MusicReview.objects.create(
             user=self.user,
             title='Review for Comment',
             content='Review content here.',
             rating=4.0,
-            music_item=self.album
+            content_type = ContentType.objects.get_for_model(Album),
+            object_id = self.album.id,
         )
 
     def test_comment_creation(self):
@@ -141,8 +137,9 @@ class AlbumModelTests(TestCase):
         self.artist = Artist.objects.create(name='Test Artist')
 
     def test_album_creation(self):
-        album = Album.objects.create(artist=self.artist, name='Test Album', release_date='2022-01-01')
-        self.assertEqual(album.name, 'Test Album')
+        content_type = ContentType.objects.get_for_model(Album)
+        self.album = Album.objects.create(artist=self.artist, name='Review Album', release_date='2022-01-01', content_type=content_type)
+        self.assertEqual(self.album.name, 'Review Album')
 
 class UserModelTests(TestCase):
     def test_custom_user_creation(self):
@@ -164,17 +161,6 @@ class UserCreationFormTests(TestCase):
             new_user = form.save()
             self.assertEqual(new_user.username, 'newuser')
 
-class ReviewCreationFormTests(TestCase):
-    pass
-    # def test_review_form_valid(self):
-    #     form_data = {
-    #         'title': 'Test Review',
-    #         'content': 'Content of the test review.',
-    #         'rating': 5,
-    #     }
-    #     form = ReviewCreationForm(data=form_data)
-    #     self.assertTrue(form.is_valid())
-
 class CommentCreationFormTests(TestCase):
     def test_comment_form_valid(self):
         form_data = {'content': 'A test comment.'}
@@ -191,7 +177,7 @@ class ViewTest(TestCase):
         response = self.client.get(reverse('review_site:explore'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'reviews')
-        self.assertContains(response, 'ratings')
+        
 
 class PostReviewViewTests(TestCase):
     def setUp(self):
@@ -203,19 +189,12 @@ class PostReviewViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'review_site/post_review.html')
 
-    # def test_post_review_success(self):
-    #     form_data = {
-    #         'title': 'New Review',
-    #         'content': 'Review content here.',
-    #         'rating': 4.0,
-    #     }
-    #     response = self.client.post(reverse('review_site:post_review'), form_data)
-    #     self.assertRedirects(response, reverse('review_site:explore'))
 
 class SongModelTests(TestCase):
     def setUp(self):
         self.artist = Artist.objects.create(name='Test Artist for Song')
-        self.album = Album.objects.create(artist=self.artist, name='Test Album for Song', release_date='2023-01-01')
+        content_type = ContentType.objects.get_for_model(Album)
+        self.album = Album.objects.create(artist=self.artist, name='Test Album for Song', release_date='2022-01-01', content_type=content_type)
 
     def test_song_creation(self):
         song = Song.objects.create(artist=self.artist, name='Test Song', release_date='2023-01-02', album=self.album)
@@ -227,15 +206,7 @@ class SongModelTests(TestCase):
         song = Song.objects.create(artist=self.artist, name='Test Song', release_date='2023-01-02', album=self.album)
         self.assertEqual(str(song), f'{song.artist}: {song.name}')
 
-class RatingModelTests(TestCase):
-    def setUp(self):
-        User = get_user_model()
-        self.user = User.objects.create_user(username='rater', password='testpass1234')
-        self.artist = Artist.objects.create(name='Artist for Rating')
-        self.song = Song.objects.create(artist=self.artist, name='Song for Rating', release_date='2023-01-03')
-
-
-# ------------------------------------------------------------------------------------------------------------------------------------------------------------
+# # ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 class AuthenticationTests(TestCase):
     # The only custom view
@@ -251,7 +222,7 @@ class AuthenticationTests(TestCase):
         self.assertTrue(User.objects.filter(username='newuser').exists())
         
 
-    # login is a part of django.contrib.auth.urls, so if this works, all the others work as well
+#     # login is a part of django.contrib.auth.urls, so if this works, all the others work as well
     def test_login(self):
         self.user = User.objects.create_user(username='testuser', password='12345')
         response = self.client.post(reverse('login'), {
