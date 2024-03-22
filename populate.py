@@ -324,7 +324,7 @@ album_images = {'Is This It': 'isthisit.png',
                 'Crater Creek': 'cratercreek.jpg',
                 'Tweez': 'Tweez.jpg',
                 'The Glow, Pt. 2': 'theglow.png',
-                'Don\'t wake up': 'dontwake.jpg'
+                'Don\'t wake up': 'dontwake.jpg',
                 'News of the World':'Queen_News_Of_The_World.jpg',
                 'Voicenotes':'Charlie_Puth_Voicenotes.jpg'
                 }
