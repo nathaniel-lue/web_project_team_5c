@@ -18,11 +18,13 @@ def populate():
               {'artist': 'Slint', 'name':'Tweez', 'release_date': '1989-01-01'},
               {'artist': 'The Microphones', 'name':'Tests', 'release_date': '1998-05-20'},
               {'artist': 'The Microphones', 'name':'Window', 'release_date': '2000-02-8'},
-              {'artist': 'The Microphones', 'name':"Don't Wake Up", 'release_date': '1999-08-19'},
+              {'artist': 'The Microphones', 'name':'Don\'t Wake Up', 'release_date': '1999-08-19'},
               {'artist': 'The Microphones', 'name':'It Was Hot, We Stayed In The Water', 'release_date': '2000-09-26'},
               {'artist': 'The Microphones', 'name':'Blood', 'release_date': '2001-09-21'},
               {'artist': 'The Microphones', 'name':'Mount Eerie', 'release_date': '2003-01-21'},
               {'artist': 'The Microphones', 'name':'Little Bird Flies into a Big Black Cloud', 'release_date': '2002-09-13'},
+              {'artist': 'The Beatles', 'name':'Abbey Road', 'release_date': '1965-09-13'},
+              {'artist': 'Tom Petty', 'name':'Full Moon Fever', 'release_date': '2002-09-13'},
               {'artist': 'Queen', 'name':'News of the World', 'release_date': '1977-10-28'},
               {'artist': ' Charlie Puth', 'name':'Voicenotes', 'release_date': '2018-05-11'},
               ]
@@ -205,7 +207,8 @@ def populate():
                ]
 
     eps = [{'artist': 'Oasis', 'name': 'Whatever', 'release_date': '1994-12-18'},
-           {'artist': 'The Snuts', 'name': 'Dreams', 'release_date': '2023-07-01'}]
+           {'artist': 'The Snuts', 'name': 'Dreams', 'release_date': '2023-07-01'},
+           {'artist': 'The Smiths', 'name': 'Hatful of Hollow', 'release_date': '1988-07-15'}]
     
     epSongs = {"Whatever": [{'name': 'Whatever', 'release_date': '1994-12-18'},
                             {'name': "(It's Good) To Be Free", 'release_date': '1994-12-18'},
@@ -307,6 +310,21 @@ album_images = {'Is This It': 'isthisit.png',
                 'Mount Eerie':'mounteerie.jpg',
                 'Window':'window.jpg',
                 'Tests':'tests.jpg',
+                'Full Moon Fever': 'Full_Moon_Fever.jpg',
+                'Abbey Road': 'Abbey_Road.jpg',
+                'Hatful of Hollow': 'HatfulOfHollow.jpg',
+                'Sally Cinnamon': 'sally.jpg',
+                'Norgaard': 'vaccine.jpg',
+                'Would?': 'chains.jpg',
+                'Vampire Empire': 'bigthief.webp',
+                'Back to the Old House': 'oldhouse.jpg',
+                'L.A. Woman': 'LAWoman.jpg',
+                'Dreams': 'dreams.png',
+                'Spiderland': 'spiderland.jpg',
+                'Crater Creek': 'cratercreek.jpg',
+                'Tweez': 'Tweez.jpg',
+                'The Glow, Pt. 2': 'theglow.png',
+                'Don\'t wake up': 'dontwake.jpg'
                 'News of the World':'Queen_News_Of_The_World.jpg',
                 'Voicenotes':'Charlie_Puth_Voicenotes.jpg'
                 }
@@ -347,6 +365,13 @@ def add_single(artist, name, release_date):
     s = Single.objects.get_or_create(artist=artist, name=name, release_date=release_date, content_type=content_type_obj)[0]
     s.artist = artist
     s.name = name
+    
+    if name in album_images:
+        file_path = os.path.join(album_art_directory, album_images[name])
+        with open(file_path, 'rb') as file:
+            django_file = File(file)
+            s.album_art.save(album_images[name], django_file, save=True)
+            
     s.release_date = release_date
     s.save()
     return s
