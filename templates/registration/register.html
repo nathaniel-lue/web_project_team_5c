@@ -1,9 +1,5 @@
 {% extends "base.html" %}
 
-{}
-
-
-
 {% block content %}
 <div class = "container">
     <div class="mask d-flex align-items-center h-100 gradient-custom-3">
@@ -26,15 +22,16 @@
                     <div class="form-outline mb-4">
                         <label class="form-label" for="form3Example4cg">Password</label>
 
-                        <input type="text" name = "password1" id="id_password1" class="form-control form-control-lg" />
+                        <input type="password" name = "password1" id="id_password1" class="form-control form-control-lg" />
                     </div>
     
                     <div class="form-outline mb-4">
                         <label class="form-label" for="form3Example4cdg">Repeat your password</label>
-                        <input type="text" name = "password2" id="id_password2" class="form-control form-control-lg" />
+                        <input type="password" name = "password2" id="id_password2" class="form-control form-control-lg" />
                     </div>
     
                     <div class="d-flex justify-content-center">
+                      <br>
                       <button type="submit"
                         class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
                     </div>
@@ -46,12 +43,5 @@
           </div>
         </div>
       </div>
-    <!-- <div class = "middle">
-    <h2>Register</h2>
-    <form method="post">
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
-    </div> -->
 </div>
 {% endblock %}
