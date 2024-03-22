@@ -61,7 +61,7 @@ class ReviewCreationForm(forms.ModelForm):
     review_type = forms.ChoiceField(choices=type_choices)
     title = forms.CharField(max_length=100, help_text="Title of your review")
     content_title = forms.CharField(max_length=100, help_text="Title of music content being reviewed")
-    content = forms.CharField(max_length=1500, help_text="Write your review!")
+    content = forms.CharField(widget=forms.Textarea, max_length=1500, help_text="Write your review!")
     rating = forms.FloatField(min_value=0, max_value=5, help_text="0-5 Stars")
     release_date = forms.DateField(help_text="YYYY-MM-DD format", required=False)
     album_upload = forms.ImageField(required=False, help_text="Upload artwork for this review", )
