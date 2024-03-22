@@ -96,7 +96,7 @@ def forum(request, review_id):
 
     return render(request, 'review_site/forum.html', {'review': review, 'comments': comments, 'form': form})
 
-def post_review(request):
+def post_review(request, content_type=None, content_id=-1):
     context_dict = {}
     if request.method == 'POST':
         form = ReviewCreationForm(request.POST, request.FILES)
@@ -159,7 +159,26 @@ def post_review(request):
             posted_review.save() 
             return redirect('review_site:explore')
     else:
-        form = ReviewCreationForm()
+        if "Album" in content_type:
+            review_type = "Album"
+            content_type_obj = ContentType.objects.get_for_model(Album)
+            content_obj = Album.objects.filter(id=content_id)[0]
+        elif "EP" in content_type:
+            review_type = "EP"
+            content_type_obj = ContentType.objects.get_for_model(EP)
+            content_obj = EP.objects.filter(id=content_id)[0]
+        else:
+            review_type = "Single"
+            content_type_obj = ContentType.objects.get_for_model(Single)
+            content_obj = Single.objects.filter(id=content_id)[0]
+
+        prepopulation = {
+            'artist': content_obj.artist,
+            'review_type': review_type,
+            'content_title': content_obj.name,
+            'release_date': content_obj.release_date
+        }
+        form = ReviewCreationForm(prepopulation)
         context_dict['form'] = form
     
     return render(request, 'review_site/post_review.html', context=context_dict)

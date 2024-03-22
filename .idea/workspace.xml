@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="79e05d29-edca-4d3e-932e-c95cd97fc956" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/review_site/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/review_site/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/review_site/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/review_site/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/review_site/_explore_albums.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/review_site/_explore_albums.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/review_site/content_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/review_site/content_page.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2dYYCov3QMidaLF0RBtIuC1Ak2s" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "post-review-for-existing",
+    "last_opened_file_path": "/home/nikalinov/uni/wad/web_project_team_5c/music_review/music_review/settings.py",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "com.jetbrains.django.DjangoModulesConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="79e05d29-edca-4d3e-932e-c95cd97fc956" name="Changes" comment="" />
+      <created>1710186353153</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1710186353153</updated>
+      <workItem from="1710186354238" duration="1484000" />
+      <workItem from="1710187843022" duration="11082000" />
+      <workItem from="1710430302300" duration="8064000" />
+      <workItem from="1710493617507" duration="4886000" />
+      <workItem from="1711016828647" duration="9718000" />
+      <workItem from="1711098589773" duration="180000" />
+      <workItem from="1711098777551" duration="4353000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

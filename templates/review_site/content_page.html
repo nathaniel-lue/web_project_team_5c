@@ -33,6 +33,7 @@
     {% else %}
       <p>No reviews yet!</p>
     {% endif %}
+    <a href="{% url 'review_site:post_review_existing' content_item.content_type content_item.id %}">Post a review</a>
     </div>
   </div>
 
