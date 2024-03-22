@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="79e05d29-edca-4d3e-932e-c95cd97fc956" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/review_site/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/review_site/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/review_site/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/review_site/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/review_site/_explore_albums.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/review_site/_explore_albums.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/review_site/content_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/review_site/content_page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music_review/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/music_review/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +38,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "post-review-for-existing",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/home/nikalinov/uni/wad/web_project_team_5c/music_review/music_review/settings.py",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -64,7 +62,8 @@
       <workItem from="1710493617507" duration="4886000" />
       <workItem from="1711016828647" duration="9718000" />
       <workItem from="1711098589773" duration="180000" />
-      <workItem from="1711098777551" duration="4353000" />
+      <workItem from="1711098777551" duration="4920000" />
+      <workItem from="1711107024894" duration="1304000" />
     </task>
     <servers />
   </component>
