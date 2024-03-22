@@ -7,6 +7,23 @@
     <list default="true" id="79e05d29-edca-4d3e-932e-c95cd97fc956" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/music_review/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/music_review/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/music_review/artist_profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/artist_profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/music_review/content_page.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/content_page.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/music_review/explore.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/explore.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/music_review/forum.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/forum.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/music_review/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/music_review/music.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/music.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/music_review/post_review.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/post_review.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/music_review/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/register.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/music_review/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/navbar_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/navbar_base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/review_site/artist_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/review_site/artist_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/review_site/content_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/review_site/content_page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/review_site/explore.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/review_site/explore.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/review_site/forum.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/review_site/forum.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/review_site/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/review_site/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/review_site/post_review.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/review_site/post_review.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +80,7 @@
       <workItem from="1711016828647" duration="9718000" />
       <workItem from="1711098589773" duration="180000" />
       <workItem from="1711098777551" duration="4920000" />
-      <workItem from="1711107024894" duration="1304000" />
+      <workItem from="1711107024894" duration="2129000" />
     </task>
     <servers />
   </component>
