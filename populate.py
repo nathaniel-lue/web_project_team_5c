@@ -23,6 +23,8 @@ def populate():
               {'artist': 'The Microphones', 'name':'Blood', 'release_date': '2001-09-21'},
               {'artist': 'The Microphones', 'name':'Mount Eerie', 'release_date': '2003-01-21'},
               {'artist': 'The Microphones', 'name':'Little Bird Flies into a Big Black Cloud', 'release_date': '2002-09-13'},
+              {'artist': 'Queen', 'name':'News of the World', 'release_date': '1977-10-28'},
+              {'artist': ' Charlie Puth', 'name':'Voicenotes', 'release_date': '2018-05-11'},
               ]
 
     songs = {'Is This It': [
@@ -149,6 +151,34 @@ def populate():
             {'name': 'Warren', 'release_date': '1989-01-01'},
             {'name': 'Pat', 'release_date': '1989-01-01'},
             {'name': 'Rhoda', 'release_date': '1989-01-01'},
+        ],
+        'News of the World':[
+            {'name': 'We Will Rock You', 'release_date': '1977-10-07'},
+            {'name': 'We Are the Champions', 'release_date': '1977-07-10'},
+            {'name': 'Sheer Heart Attack', 'release_date': '1974-11-08'},
+            {'name': 'All Dead, All Dead', 'release_date': '1977-10-28'},
+            {'name': 'Spread Your Wings', 'release_date': '1977-10-28'},
+            {'name': 'Fight from the Inside', 'release_date': '1977-10-28'},
+            {'name': 'Get Down, Make Love', 'release_date': '1977-10-28'},
+            {'name': 'Sleeping on the Sidewalk', 'release_date': '1977-10-28'},
+            {'name': 'Who Needs You', 'release_date': '1977-10-28'},
+            {'name': 'It\'s Late', 'release_date': '1977-10-28'},
+            {'name': 'My Melancholy Blues', 'release_date': '1977-10-28'},
+        ],
+        'Voicenotes':[
+            {'name': 'The Way I Am', 'release_date': '2018-05-11'},
+            {'name': 'Attention', 'release_date': '2018-05-11'},
+            {'name': 'LA Girls', 'release_date': '2017-04-21'},
+            {'name': 'How Long', 'release_date': '2017-10-05'},
+            {'name': 'Done for Me', 'release_date': '2018-03-15'},
+            {'name': 'Patient', 'release_date': '2018-05-11'},
+            {'name': 'If You Leave Me Now', 'release_date': '2018-05-11'},
+            {'name': 'BOY', 'release_date': '2018-05-11'},
+            {'name': 'Slow It Down', 'release_date': '2018-05-11'},
+            {'name': 'Change', 'release_date': '2018-05-11'},
+            {'name': 'Somebody Told Me', 'release_date': '2018-05-11'},
+            {'name': 'Empty Cups', 'release_date': '2018-05-11'},
+            {'name': 'Through It All', 'release_date': '2018-05-11'},
         ]
         }
 
@@ -276,7 +306,9 @@ album_images = {'Is This It': 'isthisit.png',
                 'Little Bird Flies into a Big Black Cloud':'littlebird.jpg',
                 'Mount Eerie':'mounteerie.jpg',
                 'Window':'window.jpg',
-                'Tests':'tests.jpg'
+                'Tests':'tests.jpg',
+                'News of the World':'Queen_News_Of_The_World.jpg',
+                'Voicenotes':'Charlie_Puth_Voicenotes.jpg'
                 }
 
 def add_album(artist, name, release_date):
