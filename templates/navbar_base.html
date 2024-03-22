@@ -19,12 +19,9 @@
       <a href = "{% url 'review_site:explore' %}">Explore</a>
       <a href = "{% url 'review_site:post_review' %}">Post a Review</a>
 
-      <input type="text" placeholder="Search...">
-
       {% if user.is_authenticated %}
       <a class =  "logout" href = "{% url 'logout' %}">Log out</a>
       {% endif %}
-
       
 
       {% if not user.is_authenticated %}
