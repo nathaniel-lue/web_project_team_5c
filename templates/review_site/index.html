@@ -31,7 +31,7 @@
               <img src="{{ MEDIA_URL }}{{ review_one.music_item.album_art }}" alt="first album" >
               <p>{{ review_one.music_item.artist }}</p>
               <p>{{ review_one.music_item.name }}</p>
-              <p>{{ review_one.rating }}</p>
+              <p>{{ review_one.rating }}   <span>&#9733;</span></p>
               {% else %}     
               <img src="{% static 'images/notFound.png' %}" alt="second album">
               <p>Album</p>
@@ -45,7 +45,7 @@
               {% if review_two %}
               <p>{{ review_two.music_item.artist }}</p>
               <p>{{ review_two.music_item.name }}</p>
-              <p>{{ review_two.rating }}</p>
+              <p>{{ review_two.rating }}   <span>&#9733;</span></p>
               {% else %}     
               <img src="{% static 'images/notFound.png' %}" alt="second album" style="width:100%;">
               <p>Album</p>
@@ -59,7 +59,7 @@
                 <img src="{{ MEDIA_URL }}{{ review_three.music_item.album_art }}" alt="third album" style="width:100%;">
                 <p>{{ review_three.music_item.artist }}</p>
                 <p>{{ review_three.music_item.name }}</p>
-                <p>{{ review_three.rating }}</p>   
+                <p>{{ review_three.rating }}   <span>&#9733;</span></p>   
               {% else %}     
                 <img src="{% static 'images/notFound.png' %}" alt="second album" style="width:100%;">
                 <p>Album</p>

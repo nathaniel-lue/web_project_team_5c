@@ -133,7 +133,7 @@ def average_rating_review(content_type, object_id):
     
     if average_rating is None:
         return None
-    return round(average_rating, 2)
+    return round(average_rating, 1)
     
 
 class Comment(models.Model):

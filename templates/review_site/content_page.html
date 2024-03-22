@@ -29,7 +29,7 @@
         <p>{{ content_item.artist }}- {{ content_item.name }}</p>
         
         {% if reviews %}
-        <p>Average Review- {{ average_rating }}</p>
+        <p>Average Review- {{ average_rating }}   <span>&#9733;</span></p>
         <p>Reviews:</p>
         {% for review in reviews %}
           <ul>
