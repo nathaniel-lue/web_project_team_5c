@@ -1,0 +1,22 @@
+img#cover_art{
+    height: 400px; 
+    width: 400px;
+    margin: 20px;
+}
+
+.albumBlockInfo{
+    border: 1px solid black;
+    padding: 5px;
+    margin: 20px;
+    max-width: 500px;
+}
+
+.contentBlockInfo{
+    background-color: white;
+    padding: 10px;
+    margin: 5px;
+    width: 600px;
+    height: 400px;
+    margin-top: 20px;
+    border: 2px solid orange;
+}

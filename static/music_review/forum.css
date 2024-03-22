@@ -18,7 +18,6 @@
 
 .forum_small_titles{
     margin: 1%;
-
     color:black;
 }
 
@@ -41,10 +40,11 @@
 }
 
 .forum_info {
-    height:35%;
+    height:100%;
     width:50%;   
 }
 
 .comments {
     margin:0;
 }
+

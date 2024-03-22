@@ -8,34 +8,43 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{% static 'music_review/style.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'music_review/explore.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'music_review/content_page.css' %}" />
 {% endblock %}
 
 
 {% block body %}
+
+<div class="container">
+<div class="middle">
 {% if content %}
   {% for content_item in content %}
-  <div class = "albumBox">
-    <div class = "albumOneImage">
-      <img src="{{ MEDIA_URL }}{{ content_item.album_art }}" id="cover_art" style="max-height: 200px; max-width: 200px"/>
-    </div>
 
-    <div class = "albumBlockInfo">
-      <p>{{ content_item.artist }}- {{ content_item.name }}</p>
-      
-      {% if reviews %}
-      <p>Average Review- {{ average_rating }}</p>
-      <p>Reviews:</p>
-      {% for review in reviews %}
-        <ul>
-            <li><a href="{% url 'review_site:forum' review_id=review.id %}">{{ review.title }}  ({{ review.rating }})- {{ review.user.username }} </a></li>
-        </ul>
-      {% endfor %}
-    {% else %}
-      <p>No reviews yet!</p>
-    {% endif %}
-    <a href="{% url 'review_site:post_review_existing' content_item.content_type content_item.id %}">Post a review</a>
+  <div class="horizontal_container">
+      <div class = "albumOneImage">
+        <img src="{{ MEDIA_URL }}{{ content_item.album_art }}" id="cover_art" />
+      </div>
+
+      <div class="contentBlockInfo">
+      <div class = "forumInfoAndComments">
+        <p>{{ content_item.artist }}- {{ content_item.name }}</p>
+        
+        {% if reviews %}
+        <p>Average Review- {{ average_rating }}</p>
+        <p>Reviews:</p>
+        {% for review in reviews %}
+          <ul>
+              <li><a href="{% url 'review_site:forum' review_id=review.id %}">{{ review.title }}  ({{ review.rating }})- {{ review.user.username }} </a></li>
+          </ul>
+        {% endfor %}
+      {% else %}
+        <p>No reviews yet!</p>
+      {% endif %}
+      <a href="{% url 'review_site:post_review_existing' content_item.content_type content_item.id %}">Post a review</a>
+      </div>
     </div>
-  </div>
+    </div>
+</div>
+</div>
 
 {% endfor %}
 {% endif %}
