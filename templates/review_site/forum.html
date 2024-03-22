@@ -15,7 +15,7 @@
     <div class = "container">
     <div class = "middle">
     {% if review %}
-        <h1 class="forum_titles">{{ review.title }} ({{ review.rating }} stars)</h1>
+        <h1 class="forum_titles">{{ review.title }} - {{ review.rating }} <span>&#9733;</span></h1>
         <h3 class="forum_small_titles">Written by: {{ review.user.username }}</h3>
 
         <div class="horizontal_container">
@@ -26,7 +26,7 @@
             <div class = "forum_info" >
                 <p><strong>Artist: </strong>{{ review.music_item.artist }}</p>
                 <p><strong>Title: </strong>{{ review.music_item.name }}</p>
-                <p><strong>Rating: </strong>{{ review.rating }}</p>
+                <p><strong>Rating: </strong>{{ review.rating }}  <span>&#9733;</span></p>
                 <p><strong>Review: </strong>{{ review.content }}</p>
             </div>
 
